@@ -7,8 +7,8 @@ each threshold is still reachable after a supplied list of unavailable members.
 
 [中文说明](README.zh-CN.md) · Apache-2.0 · Pure MoonBit core · JS backend
 
-Version 0.1.0 is a **local candidate**, not uploaded to GitHub or Mooncakes.
-Do not use a registry installation command yet. Proposed repository name: **MoonQuorum**.
+Version 0.1.0. Repository: [JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum).
+Publication is authorized; actual registry and CI receipts are in docs/acceptance.md.
 
 ## Three scenarios
 
@@ -91,7 +91,6 @@ The verifier checks debug and release against an independent enumeration of all
 pairs of subsets for 6,561 three-voter weighted-policy cases, validates every
 counterexample and outage result, tests malformed input/budgets/process I/O, and
 runs all examples. Finite tests are not a proof over every supported input.
-Windows/Ubuntu CI is configured but has not run remotely because this project
-has not been uploaded. See [actual evidence](docs/acceptance.md),
+Windows/Ubuntu CI is configured; actual run receipts are recorded separately. See [actual evidence](docs/acceptance.md),
 [architecture](docs/architecture.md), [ecosystem comparison](docs/ecosystem.md),
 [competition checklist](docs/competition.md) and [publishing](docs/publishing.md).

@@ -1,14 +1,13 @@
-# Publication is deferred by the user
+# Publication authorized 2026-11-16
 
-Proposed GitHub repository name: MoonQuorum. Module: JingLan0v0/quorum, local
-candidate0.1.0. No repository URL is set in moon.mod because the user has not
-created one. No git remote is configured. Do not upload to GitHub, Mooncakes or
-a validation endpoint during this local-only phase; no moon publish --dry-run.
+Owner-created public repository: https://github.com/JingLan0v0/MoonQuorum .
+The user explicitly authorized GitHub and Mooncakes upload, superseding deferral.
+Module: JingLan0v0/quorum, version0.1.0. Repository was independently verified
+public, not archived, and empty before initial upload. Preserve all local history.
 
-Once the user supplies the new repository, confirm ownership/URL and empty or
-existing history. Add exact repository metadata and proposal root link. Run full
-verification, normal push, and verify exact SHA Windows/Ubuntu CI. Preserve Git
-history, never force-push. Inspect actual publisher archive, fresh-extract/test,
-preflight, then publish a new version and verify the exact registry download in
-a fresh consumer (feasible intersection, disjoint proof, budget and outage cases).
-Credentials stay outside the repository. Record all actual receipts separately.
+Run full verification, normal push and exact-SHA Windows/Ubuntu CI. Inspect the
+actual publisher archive, test a fresh extraction, preflight, publish only a new
+version, and verify an exact registry download with no local workspace override.
+Exercise intersection, disjoint proof, budget recovery and outage APIs. Credentials
+stay outside the repository. Record actual receipts in acceptance.md. No automatic
+competition forms or external messaging; organizer decisions remain separate.

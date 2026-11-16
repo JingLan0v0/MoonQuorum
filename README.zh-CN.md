@@ -4,8 +4,8 @@
 两组互不相交、却各自达到阈值的成员名单，供开发者复核。同时计算指定节点下线后，
 各策略是否还有足够权重达到阈值。核心分析全部由 MoonBit 实现。
 
-当前 **0.1.0 为本地候选版，尚未上传 GitHub 或 Mooncakes**。
-建议创建的 GitHub 仓库名称：**MoonQuorum**。
+当前版本 **0.1.0**，发布状态和实际回执见 [验收记录](docs/acceptance.md)。
+公开仓库：[JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum)。
 
 ## 三个完整场景
 
@@ -41,5 +41,5 @@ node scripts/verify.mjs
 核心使用精确整数，按输入顺序输出确定性见证；不承诺反例集合的成员数最少。
 
 本地验收包括两种构建模式、独立穷举对照、伪造见证、边界、输入输出和三场景检查。
-实际结果见 [验收记录](docs/acceptance.md)。CI 配置已准备，尚未有远端运行结果。
+实际结果见 [验收记录](docs/acceptance.md)。CI 的实际运行结果单独记录。
 赛事报名、资格和最终验收由官方确认，技术验证不能替代赛事审核。

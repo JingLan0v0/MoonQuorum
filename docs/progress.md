@@ -1,8 +1,8 @@
 # MoonQuorum handoff — 2026-11-16
 
 Active project: C:/Users/XJY/Desktop/moonbit-quorum. Version0.1.0 local candidate.
-The user explicitly requested local implementation and desktop proposal first;
-no GitHub or Mooncakes upload until they create/supply the repository.
+On 2026-11-16 the user supplied https://github.com/JingLan0v0/MoonQuorum and
+authorized normal GitHub upload and Mooncakes publication. Earlier deferral is superseded.
 
 Implemented: weighted pair validation/snapshots; exact capped knapsack analysis;
 independent disjoint witness verifier; named-outage capacity analysis; bounded
