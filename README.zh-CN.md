@@ -4,8 +4,16 @@
 两组互不相交、却各自达到阈值的成员名单，供开发者复核。同时计算指定节点下线后，
 各策略是否还有足够权重达到阈值。核心分析全部由 MoonBit 实现。
 
-当前版本 **0.1.0**，发布状态和实际回执见 [验收记录](docs/acceptance.md)。
+已发布 **[JingLan0v0/quorum@0.1.0](https://mooncakes.io/docs/JingLan0v0/quorum@0.1.0)**，实际回执见 [验收记录](docs/acceptance.md)。
 公开仓库：[JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum)。
+
+## 安装库
+
+```sh
+moon add JingLan0v0/quorum@0.1.0
+```
+
+在使用方 `moon.pkg` 中导入 `JingLan0v0/quorum`；调用示例见 `examples/library`。
 
 ## 三个完整场景
 

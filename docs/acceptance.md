@@ -1,5 +1,38 @@
 # Acceptance evidence — 2026-11-16
 
+## GitHub and Mooncakes publication — 2026-11-16
+
+The owner supplied https://github.com/JingLan0v0/MoonQuorum and explicitly authorized
+both uploads. The public repository was independently verified empty and not archived.
+Normal push preserved both original commits; no force push. Publication source:
+`5e1b46af506c1aba66f32e08b126cb9298fd427c`.
+[CI run 43847756029](https://github.com/JingLan0v0/MoonQuorum/actions/runs/43847756029)
+passed Windows and Ubuntu on that exact SHA before publication.
+
+Fresh local verifier: 2026-11-16T10:18:29.339Z; actual package extraction verifier:
+2026-11-16T10:19:31.632Z. Each passed debug/release: 12 units, 6561 exhaustive
+policy cases, 18 bad batch items, seven transport rejects, all process/scenario
+checks. PowerShell smoke passed in both checkout and extraction.
+
+Actual Mooncakes ZIP: 37 tracked files, excludes Git metadata, CI/ignore files,
+credentials, toolchains, caches and build outputs. SHA-256:
+`9b913e2e8481e432b22482e925f248bc8be20d0cffb4e54f041ed08df95a2813`.
+Preflight returned `202 Accepted`, actual publication returned `200 OK`, both exit0.
+Registry creation timestamp: 2026-11-16T10:20:28.306014+00:00 (18:20:28 Asia/Shanghai).
+
+A new credential-free empty cache installed JingLan0v0/quorum@0.1.0 without local
+workspace/path substitution. Debug/release with warnings denied passed version,
+intersecting/disjoint outcomes, independent witness validation, outage capacity,
+exact budget threshold and recovery. All 37 downloaded files and ZIP digest match.
+See [publication-0.1.0.json](publication-0.1.0.json). Desktop proposal now includes
+actual repository and Mooncakes links. The following docs-only commit records
+these receipts; the immutable package remains tied to the source above.
+
+Earlier sections below are historical local preparation. Their upload deferral
+has been superseded; competition approval is still not implied.
+
+## Initial local preparation
+
 Local verifier completed at 2026-11-16T09:00:46.513Z using pinned moon/moonc,
 Node24.14.0 on Windows. Debug/release each passed 12 MoonBit unit tests,
 6561 independent exhaustive weighted-policy comparisons with checked witnesses

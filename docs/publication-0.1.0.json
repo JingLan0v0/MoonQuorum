@@ -1,0 +1,113 @@
+{
+  "module": "JingLan0v0/quorum",
+  "version": "0.1.0",
+  "sourceCommit": "5e1b46af506c1aba66f32e08b126cb9298fd427c",
+  "local": {
+    "status": "passed",
+    "recordedAt": "2026-11-16T10:18:29.339Z",
+    "node": "v24.14.0",
+    "reports": [
+      {
+        "mode": "debug",
+        "unitTests": "Total tests: 12, passed: 12, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      },
+      {
+        "mode": "release",
+        "unitTests": "Total tests: 12, passed: 12, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      }
+    ]
+  },
+  "packageExtraction": {
+    "status": "passed",
+    "recordedAt": "2026-11-16T10:19:31.632Z",
+    "node": "v24.14.0",
+    "reports": [
+      {
+        "mode": "debug",
+        "unitTests": "Total tests: 12, passed: 12, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      },
+      {
+        "mode": "release",
+        "unitTests": "Total tests: 12, passed: 12, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      }
+    ]
+  },
+  "powershellSmoke": "passed in checkout and extraction",
+  "packageFiles": 37,
+  "registryEntry": {
+    "name": "JingLan0v0/quorum",
+    "readme": "README.md",
+    "yanked": false,
+    "license": "Apache-2.0",
+    "version": "0.1.0",
+    "checksum": "9b913e2e8481e432b22482e925f248bc8be20d0cffb4e54f041ed08df95a2813",
+    "keywords": [
+      "quorum",
+      "configuration",
+      "weighted-voting"
+    ],
+    "created_at": "2026-11-16T10:20:28.306014+00:00",
+    "repository": "https://github.com/JingLan0v0/MoonQuorum",
+    "description": "Bounded weighted quorum intersection checks with disjoint witnesses and outage analysis.",
+    "yanked_reason": null,
+    "preferred-target": "js",
+    "supported-targets": "js"
+  },
+  "preflight": "202 Accepted, exit 0",
+  "publication": "200 OK, exit 0",
+  "ci": {
+    "run": 43847756029,
+    "windows": "success",
+    "ubuntu": "success"
+  },
+  "consumer": {
+    "freshCache": true,
+    "credentials": false,
+    "workspaceDependency": false,
+    "modes": [
+      "debug",
+      "release"
+    ],
+    "checks": [
+      "version",
+      "intersection",
+      "disjoint witness",
+      "independent verifier",
+      "outage capacity",
+      "exact budget and recovery"
+    ],
+    "downloadedFilesMatch": true
+  }
+}

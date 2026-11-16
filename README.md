@@ -8,7 +8,8 @@ each threshold is still reachable after a supplied list of unavailable members.
 [中文说明](README.zh-CN.md) · Apache-2.0 · Pure MoonBit core · JS backend
 
 Version 0.1.0. Repository: [JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum).
-Publication is authorized; actual registry and CI receipts are in docs/acceptance.md.
+Published: [JingLan0v0/quorum@0.1.0](https://mooncakes.io/docs/JingLan0v0/quorum@0.1.0).
+Actual registry and CI receipts: [acceptance](docs/acceptance.md).
 
 ## Three scenarios
 
@@ -64,6 +65,17 @@ without poisoning neighbors. Malformed whole batch input exits 2. On stdout
 failure a partial output may already exist; check process status. `--version`
 and `--help` are supported. JSON uses strict UTF-8 (optional BOM); duplicate keys
 are rejected and diagnostics escape control characters.
+
+## Install the library
+
+In a consumer MoonBit module:
+
+```sh
+moon add JingLan0v0/quorum@0.1.0
+```
+
+Import `JingLan0v0/quorum` in `moon.pkg`. See `examples/library/main.mbt` for usage.
+The command examples above run from a source checkout.
 
 ## Public library
 

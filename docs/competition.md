@@ -11,14 +11,14 @@ be retrieved. Detailed current form fields/extra rules remain unverified.
 | Requirement | Source/stage | Evidence/status | Next action |
 |---|---|---|---|
 | MoonBit primary implementation | Official homepage / engineering | Core and JSON in MoonBit | Retain boundary |
-| Public traceable repository | Homepage / development | Public empty MoonQuorum repository verified; upload authorized | Upload retained history |
+| Public traceable repository | Homepage / development | Public repository uploaded with preserved history; Windows/Ubuntu CI passed | See acceptance.md |
 | README/examples/tests | Homepage / engineering | Bilingual README, three scenarios, independent oracle | See acceptance receipts |
 | Recognized license/provenance | Homepage / open source | Apache-2.0 and attribution | Preserve notices |
-| One-page proposal | Homepage / application | Desktop Markdown proposal | Add actual repo root after creation |
+| One-page proposal | Homepage / application | Desktop Markdown proposal | Actual repository root added |
 | AI work understood by participant | Homepage / participant | AI assistance disclosed | Read architecture and explain limitations |
 | Event group with GitHub ID nickname | Homepage / participant | Not verified | Participant confirms |
 | Deadlines/form/eligibility | Charter and notice / organizer | Retrieval unavailable | Confirm official notice |
-| Mooncakes | User / authorized publication | Follow publishing.md | Record actual registry receipts |
+| Mooncakes | User / published | JingLan0v0/quorum@0.1.0 verified | See publication-0.1.0.json |
 | Qualification/final acceptance | Organizer | No receipt | Submit personally and await review |
 
 The official homepage permits AI-assisted code/interfaces/tests/docs and rejects

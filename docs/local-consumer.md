@@ -1,4 +1,7 @@
-# Local library consumer (not registry installation)
+# Local library consumer (source development)
+
+For the published version use `moon add JingLan0v0/quorum@0.1.0` without a
+workspace override. The steps below deliberately test local source.
 
 Create a separate directory with moon.mod:
 
