@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-11-16T09:00:46.513Z",
+  "node": "v24.14.0",
+  "reports": [
+    {
+      "mode": "debug",
+      "unitTests": "Total tests: 12, passed: 12, failed: 0.",
+      "exhaustivePolicyCases": 6561,
+      "invalidBatchItems": 18,
+      "transportRejects": 7,
+      "scenarios": [
+        "read-write",
+        "rollout",
+        "maintenance"
+      ]
+    },
+    {
+      "mode": "release",
+      "unitTests": "Total tests: 12, passed: 12, failed: 0.",
+      "exhaustivePolicyCases": 6561,
+      "invalidBatchItems": 18,
+      "transportRejects": 7,
+      "scenarios": [
+        "read-write",
+        "rollout",
+        "maintenance"
+      ]
+    }
+  ]
+}

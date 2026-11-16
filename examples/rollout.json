@@ -1,0 +1,16 @@
+{
+  "members": [
+    {
+      "id": "old",
+      "left_weight": 3,
+      "right_weight": 0
+    },
+    {
+      "id": "new",
+      "left_weight": 0,
+      "right_weight": 3
+    }
+  ],
+  "left_threshold": 2,
+  "right_threshold": 2
+}

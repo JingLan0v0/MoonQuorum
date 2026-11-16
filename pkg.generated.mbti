@@ -1,0 +1,55 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "JingLan0v0/quorum"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn analyze(Json) -> Json raise QuorumError
+
+pub fn analyze_batch(Json) -> Json raise QuorumError
+
+pub fn availability(Pair, Array[String]) -> (Int32, Int32, Bool, Bool) raise QuorumError
+
+pub fn check_intersection(Pair, max_steps? : Int32) -> Intersection raise QuorumError
+
+pub fn pair(Array[Member], Int32, Int32) -> Pair raise QuorumError
+
+pub fn parse_json(String) -> Json raise QuorumError
+
+pub fn verify_disjoint(Pair, Array[String], Array[String]) -> Bool
+
+pub fn version() -> String
+
+// Errors
+pub(all) suberror QuorumError {
+  QuorumError(String, String)
+}
+
+// Types and methods
+pub(all) enum Intersection {
+  Intersecting
+  Disjoint(Array[String], Array[String])
+}
+
+pub(all) struct Member {
+  id : String
+  left_weight : Int32
+  right_weight : Int32
+} derive(Eq, @debug.Debug)
+pub fn Member::equal(Self, Self) -> Bool
+pub fn Member::not_equal(Self, Self) -> Bool
+pub fn Member::to_repr(Self) -> @debug.Repr
+
+pub struct Pair {
+  members : Array[Member]
+  left_threshold : Int32
+  right_threshold : Int32
+  right_total : Int32
+}
+pub fn Pair::members(Self) -> Array[Member]
+
+// Type aliases
+
+// Traits

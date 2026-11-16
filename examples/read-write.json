@@ -1,0 +1,21 @@
+{
+  "members": [
+    {
+      "id": "east",
+      "left_weight": 1,
+      "right_weight": 1
+    },
+    {
+      "id": "west",
+      "left_weight": 1,
+      "right_weight": 1
+    },
+    {
+      "id": "backup",
+      "left_weight": 1,
+      "right_weight": 1
+    }
+  ],
+  "left_threshold": 2,
+  "right_threshold": 2
+}
