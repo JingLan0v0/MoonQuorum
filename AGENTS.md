@@ -1,5 +1,5 @@
 # MoonQuorum
-Read docs/progress.md, competition.md and acceptance.md before changing this project.
+Read docs/progress.md, docs/competition.md and docs/acceptance.md before changing this project.
 Independent project; preserve Git history. The user requests local-only delivery.
 Do not upload to GitHub or Mooncakes until the user supplies their new repository.
 Keep mathematical set-intersection claims separate from protocol safety/liveness.

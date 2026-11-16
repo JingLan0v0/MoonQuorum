@@ -1,0 +1,58 @@
+{
+  "sourceCommit": "a95671a20b30ebec75744c16f4f372f460a6116e",
+  "sourceArchive": {
+    "sha256": "3470a5237d3e65609d6d2c7ed0cb3c23deba5148ac76eee86c22d2b47b2ad441",
+    "entries": 47,
+    "files": 39
+  },
+  "cleanExtraction": {
+    "status": "passed",
+    "recordedAt": "2026-11-16T09:06:38.418Z",
+    "node": "v24.14.0",
+    "reports": [
+      {
+        "mode": "debug",
+        "unitTests": "Total tests: 12, passed: 12, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      },
+      {
+        "mode": "release",
+        "unitTests": "Total tests: 12, passed: 12, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      }
+    ]
+  },
+  "powershellSmoke": "passed in checkout and extraction",
+  "independentConsumer": {
+    "source": "clean extraction via local MoonBit workspace",
+    "modes": [
+      "debug",
+      "release"
+    ],
+    "denyWarnings": true,
+    "checks": [
+      "intersection",
+      "disjoint witness",
+      "outage capacity",
+      "version",
+      "exact budget threshold and recovery"
+    ]
+  },
+  "remoteCI": "not run",
+  "githubUpload": "deferred by user",
+  "mooncakesUpload": "deferred by user"
+}
