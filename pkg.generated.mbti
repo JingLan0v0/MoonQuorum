@@ -14,6 +14,8 @@ pub fn availability(Pair, Array[String]) -> (Int32, Int32, Bool, Bool) raise Quo
 
 pub fn check_intersection(Pair, max_steps? : Int32) -> Intersection raise QuorumError
 
+pub fn check_migration(Array[PolicySpec], Array[MigrationStage], max_steps? : Int32) -> MigrationReport raise QuorumError
+
 pub fn pair(Array[Member], Int32, Int32) -> Pair raise QuorumError
 
 pub fn parse_json(String) -> Json raise QuorumError
@@ -42,6 +44,29 @@ pub fn Member::equal(Self, Self) -> Bool
 pub fn Member::not_equal(Self, Self) -> Bool
 pub fn Member::to_repr(Self) -> @debug.Repr
 
+pub(all) struct MigrationReport {
+  first_failed_stage : String?
+  stages : Array[StageReport]
+  pair_checks : Int32
+  work_steps : Int32
+}
+
+pub(all) struct MigrationStage {
+  id : String
+  active : Array[String]
+  outages : Array[Outage]
+}
+
+pub(all) struct Outage {
+  id : String
+  unavailable : Array[String]
+}
+
+pub(all) struct OutageReport {
+  scenario : String
+  capacities : Array[PolicyCapacity]
+}
+
 pub struct Pair {
   members : Array[Member]
   left_threshold : Int32
@@ -49,6 +74,37 @@ pub struct Pair {
   right_total : Int32
 }
 pub fn Pair::members(Self) -> Array[Member]
+
+pub(all) struct PolicyCapacity {
+  policy : String
+  remaining : Int32
+  threshold : Int32
+  shortfall : Int32
+}
+
+pub(all) struct PolicyConflict {
+  left_policy : String
+  right_policy : String
+  left_witness : Array[String]
+  right_witness : Array[String]
+}
+
+pub(all) struct PolicySpec {
+  id : String
+  voters : Array[Voter]
+  threshold : Int32
+}
+
+pub(all) struct StageReport {
+  stage : String
+  conflicts : Array[PolicyConflict]
+  outages : Array[OutageReport]
+}
+
+pub(all) struct Voter {
+  id : String
+  weight : Int32
+}
 
 // Type aliases
 
