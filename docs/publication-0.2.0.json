@@ -1,0 +1,184 @@
+{
+  "version": "0.2.0",
+  "sourceCommit": "4262589baedbdd0dcf493776c56defca3797f196",
+  "local": {
+    "status": "passed",
+    "recordedAt": "2026-11-18T05:11:42.241Z",
+    "sourceCommit": "4262589baedbdd0dcf493776c56defca3797f196",
+    "toolchain": {
+      "moonbit_install_version": "0.10.18+6c83a7f62",
+      "moon": "0.1.20261028",
+      "moonc": "v0.10.18+6c83a7f62",
+      "node_tested": "24.14.0",
+      "backend": "js"
+    },
+    "reports": [
+      {
+        "mode": "debug",
+        "migration": {
+          "exhaustivePlans": 1728,
+          "seededWeightedPlans": 256,
+          "malformedItems": 16,
+          "scenarios": [
+            "migration-ready",
+            "migration-bridge",
+            "migration-outage"
+          ]
+        },
+        "cliSha256": "d400d31be859540ac09adcc861012362e886417b797698bdd2a0901aac38ccac",
+        "unitTests": "Total tests: 17, passed: 17, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      },
+      {
+        "mode": "release",
+        "migration": {
+          "exhaustivePlans": 1728,
+          "seededWeightedPlans": 256,
+          "malformedItems": 16,
+          "scenarios": [
+            "migration-ready",
+            "migration-bridge",
+            "migration-outage"
+          ]
+        },
+        "cliSha256": "b5d42d2567b6cae87ad131e7e75672065d0121259ec3a0789ddf72ff17bb3efc",
+        "unitTests": "Total tests: 17, passed: 17, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      }
+    ]
+  },
+  "packageExtraction": {
+    "status": "passed",
+    "recordedAt": "2026-11-18T05:11:43.187Z",
+    "sourceCommit": null,
+    "toolchain": {
+      "moonbit_install_version": "0.10.18+6c83a7f62",
+      "moon": "0.1.20261028",
+      "moonc": "v0.10.18+6c83a7f62",
+      "node_tested": "24.14.0",
+      "backend": "js"
+    },
+    "reports": [
+      {
+        "mode": "debug",
+        "migration": {
+          "exhaustivePlans": 1728,
+          "seededWeightedPlans": 256,
+          "malformedItems": 16,
+          "scenarios": [
+            "migration-ready",
+            "migration-bridge",
+            "migration-outage"
+          ]
+        },
+        "cliSha256": "d400d31be859540ac09adcc861012362e886417b797698bdd2a0901aac38ccac",
+        "unitTests": "Total tests: 17, passed: 17, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      },
+      {
+        "mode": "release",
+        "migration": {
+          "exhaustivePlans": 1728,
+          "seededWeightedPlans": 256,
+          "malformedItems": 16,
+          "scenarios": [
+            "migration-ready",
+            "migration-bridge",
+            "migration-outage"
+          ]
+        },
+        "cliSha256": "b5d42d2567b6cae87ad131e7e75672065d0121259ec3a0789ddf72ff17bb3efc",
+        "unitTests": "Total tests: 17, passed: 17, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      }
+    ]
+  },
+  "powershellSmoke": "passed in checkout and extraction",
+  "packageFiles": 49,
+  "packageFilesMatchSourceWithNormalizedLineEndings": true,
+  "registryEntry": {
+    "name": "JingLan0v0/quorum",
+    "readme": "README.md",
+    "yanked": false,
+    "license": "Apache-2.0",
+    "version": "0.2.0",
+    "checksum": "c99dfa0079a010722217550ae49794049e814c627ad798f3708e8c5cc436aa69",
+    "keywords": [
+      "quorum",
+      "configuration",
+      "weighted-voting"
+    ],
+    "created_at": "2026-11-18T05:12:31.993380+00:00",
+    "repository": "https://github.com/JingLan0v0/MoonQuorum",
+    "description": "Staged weighted quorum migration reviews with checkable disjoint witnesses and per-policy outage capacity.",
+    "yanked_reason": null,
+    "preferred-target": "js",
+    "supported-targets": "js"
+  },
+  "preflight": "202 Accepted, exit 0",
+  "publication": "200 OK, exit 0",
+  "publicPageHttpStatus": 200,
+  "ci": {
+    "run": 44242287069,
+    "windows": "success",
+    "ubuntu": "success"
+  },
+  "consumer": {
+    "verifiedAt": "2026-11-18T05:14:25.964391+00:00",
+    "freshCache": true,
+    "credentials": false,
+    "workspaceDependency": false,
+    "modes": [
+      "debug",
+      "release"
+    ],
+    "checked": [
+      "exact version",
+      "intersecting and disjoint results",
+      "independent witness verification",
+      "outage capacity",
+      "existing solver budget and recovery",
+      "migration first failed stage",
+      "per-policy shortfall",
+      "migration batch isolation"
+    ],
+    "downloadedArchiveSha256": "c99dfa0079a010722217550ae49794049e814c627ad798f3708e8c5cc436aa69",
+    "downloadedFilesMatch": true,
+    "output": [
+      "PASS public API: disjoint witness and outage analysis",
+      "PASS migration API: isolated outage shortfall in joint stage",
+      "PASS Mooncakes 0.2.0: exact version and migration batch",
+      "PASS public API: disjoint witness and outage analysis",
+      "PASS migration API: isolated outage shortfall in joint stage",
+      "PASS Mooncakes 0.2.0: exact version and migration batch"
+    ]
+  }
+}

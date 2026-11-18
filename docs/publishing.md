@@ -1,4 +1,14 @@
-# Version 0.1.0 published 2026-11-16
+# Publishing
+
+## 0.2.0 — published 2026-11-18
+
+The user authorized normal GitHub and Mooncakes synchronization. The 0.2.0
+archive was tested after independent extraction. Windows and Ubuntu CI passed
+for the release source. Mooncakes returned 202 for preflight and 200 for
+publication. The exact-version consumer installed from a fresh cache and passed
+both build modes. See acceptance.md and publication-0.2.0.json.
+
+## 0.1.0 — historical, published 2026-11-16
 
 Owner-created public repository: https://github.com/JingLan0v0/MoonQuorum .
 The user explicitly authorized GitHub and Mooncakes upload, superseding deferral.

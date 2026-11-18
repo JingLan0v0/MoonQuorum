@@ -1,4 +1,39 @@
-# Acceptance evidence — 2026-11-16
+# Acceptance evidence — 2026-11-18
+
+## MoonQuorum 0.2.0 staged migration release
+
+Release source: `4262589baedbdd0dcf493776c56defca3797f196`.
+Checkout verification completed 2026-11-18T05:11:42.241Z.
+Clean package extraction verification completed 2026-11-18T05:11:43.187Z.
+Each location passed debug and release with 17 units, 6,561 original
+weighted-policy cases, 1,728 exhaustive migration models and 256 seeded
+weighted migration models per mode. Both public API samples, all six scenarios,
+transport and batch isolation, budget boundaries and PowerShell smoke passed.
+The verification report includes the freshly built CLI SHA-256 for each mode.
+The independent migration oracle caught and now covers a witness membership
+bug where a voter absent from a policy could appear on its side of the report.
+
+[GitHub CI 44242287069](https://github.com/JingLan0v0/MoonQuorum/actions/runs/44242287069)
+passed on Windows and Ubuntu for that source. The 49 published files matched
+the source commit after line-ending normalization. Mooncakes returned
+`202 Accepted` for preflight and `200 OK` for formal publication, both exit 0.
+Registry creation timestamp: 2026-11-18T05:12:31.993380+00:00.
+
+The ZIP from a fresh registry cache matched SHA-256
+`c99dfa0079a010722217550ae49794049e814c627ad798f3708e8c5cc436aa69`, with all 49 installed files matching the tested package.
+The credential-free consumer installed the exact version without a workspace
+override. Both modes passed the original API, migration shortfall and first
+failed stage, work-budget recovery and migration batch isolation. The public
+Mooncakes version page returned HTTP 200.
+
+[Mooncakes 0.2.0](https://mooncakes.io/docs/JingLan0v0/quorum@0.2.0) ·
+[Machine-readable receipt](publication-0.2.0.json) ·
+[Revision and competition status](competition.md).
+
+The follow-up documentation commit records these observations. They cover
+technical delivery for the revised project. Organizer re-review is pending.
+
+## Historical evidence — 2026-11-16
 
 ## GitHub and Mooncakes publication — 2026-11-16
 

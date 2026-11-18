@@ -5,10 +5,15 @@ declared coexisting weighted policies, checks named outages and points to the
 first failure. See migration.md, architecture.md and competition.md. Preserve
 the repository history and the existing 0.1.0 package.
 
-Use the same pinned verification entry point before source upload. Verify
-Windows and Ubuntu CI, the actual publisher archive, and a fresh exact-version
-Mooncakes consumer. Record those receipts independently in acceptance.md.
-The desktop proposal is for review in the original registration form.
+Release source `4262589baedbdd0dcf493776c56defca3797f196` passed full verification
+in the checkout and a fresh extraction of the publisher archive. CI 44242287069
+passed on Windows and Ubuntu. Mooncakes 0.2.0 is published, and a fresh exact
+consumer passed debug and release. The downloaded ZIP and all 49 installed files
+match the tested package. See acceptance.md and publication-0.2.0.json.
+
+Desktop proposal: C:/Users/XJY/Desktop/MoonQuorum-十一月项目申报书-修订版.md.
+The participant can update the original form before the date in the rejection
+notice. The revised technical delivery awaits organizer re-review.
 
 # MoonQuorum handoff — 2026-11-16
 

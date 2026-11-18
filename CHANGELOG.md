@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 — staged migration review
+## 0.2.0 — published, 2026-11-18
 
 - Check each declared coexistence stage, including self-intersection.
 - Identify the first failed stage with policy-specific disjoint witnesses or
