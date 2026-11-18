@@ -1,3 +1,30 @@
+# Revision after initial review — 2026-11-18
+
+The MoonQuorum notice supplied by the participant cites insufficient in-season
+GitHub submissions and asks for a runnable MVP before resubmission. It permits
+updating the original form before 2026-11-30. The notice does not specify the
+counting rule or a numeric minimum. The current November homepage calls for
+traceable public development and substantial project work. Detailed charter/form
+contents were unavailable through the retrieval tools on November 18.
+
+At diagnosis, public main had four commits dated November 16, including the
+initial implementation. The revision keeps that history and adds a concrete
+rollout review workflow. Commits record real implementation, integration,
+verification and release changes.
+
+| Item | Review evidence |
+|---|---|
+| Runnable MVP | Typed migration API, CLI, and three documented stage/outage fixtures |
+| Material work | Named stage model, self/cross-policy checks, pair reuse, global work and per-policy outages |
+| Reproduction | Independent oracle, backward-compatibility cases, PowerShell and Windows/Ubuntu CI |
+| Public links | Original GitHub repository and versioned Mooncakes package |
+| Resubmission | Participant updates the existing form with the desktop proposal before the notice deadline |
+| Organizer decision | Initial application rejected. Revised submission and re-review are separate from technical release. |
+
+Sources: participant's MoonQuorum notice and the November text of
+https://github.com/moonbitlang/Hackathon2026/blob/main/src/App.tsx .
+Earlier competition evidence follows.
+
 # November 2026 requirements — retrieved 2026-11-16
 
 Official homepage https://moonbitlang.github.io/Hackathon2026/ and its current

@@ -1,8 +1,8 @@
-# MoonQuorum：加权法定人数配置检查工具
+# MoonQuorum：加权投票配置迁移检查工具
 
-检查两套投票配置中的任意左右法定人数集合是否必定相交；如果不是，直接给出
-两组互不相交、却各自达到阈值的成员名单，供开发者复核。同时计算指定节点下线后，
-各策略是否还有足够权重达到阈值。核心分析全部由 MoonBit 实现。
+在切换加权投票配置前，逐阶段检查会同时生效的策略是否可能产生不相交的法定
+人数集合，以及节点停机后各策略能否达到阈值。报告给出首个失败阶段、冲突双方的
+成员名单和权重缺口。核心分析全部由 MoonBit 实现。
 
 已发布 **[JingLan0v0/quorum@0.1.0](https://mooncakes.io/docs/JingLan0v0/quorum@0.1.0)**，实际回执见 [验收记录](docs/acceptance.md)。
 公开仓库：[JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum)。
@@ -15,7 +15,20 @@ moon add JingLan0v0/quorum@0.1.0
 
 在使用方 `moon.pkg` 中导入 `JingLan0v0/quorum`；调用示例见 `examples/library`。
 
-## 三个完整场景
+## 多阶段迁移检查
+
+```powershell
+./scripts/moon.ps1 run cmd/main --target js -- --migration examples/migration-ready.json
+./scripts/moon.ps1 run cmd/main --target js -- --migration examples/migration-bridge.json
+./scripts/moon.ps1 run cmd/main --target js -- --migration examples/migration-outage.json
+./scripts/moon.ps1 run examples/migration --target js
+```
+
+三个案例分别验证正常切换、过渡配置冲突和停机后的权重缺口。应用可通过
+`check_migration` 读取结构化报告，也可使用 `--migration-batch` 批量检查。
+[输入格式、输出与资源边界](docs/migration.md)
+
+## 原有两配置场景
 
 1. 读写配置评审：三个等权节点、读写阈值均为 2，结果为必定相交。
 2. 成员切换评审：旧成员只在左策略有权重，新成员只在右策略有权重；返回不相交见证。
@@ -49,5 +62,5 @@ node scripts/verify.mjs
 核心使用精确整数，按输入顺序输出确定性见证；不承诺反例集合的成员数最少。
 
 本地验收包括两种构建模式、独立穷举对照、伪造见证、边界、输入输出和三场景检查。
-实际结果见 [验收记录](docs/acceptance.md)。CI 的实际运行结果单独记录。
+迁移另有两种模式各 1,984 项独立穷举与生成对照。实际结果见 [验收记录](docs/acceptance.md)。CI 的实际运行结果单独记录。
 赛事报名、资格和最终验收由官方确认，技术验证不能替代赛事审核。

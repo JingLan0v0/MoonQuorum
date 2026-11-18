@@ -1,3 +1,15 @@
+# Active revision — 2026-11-18
+
+MoonQuorum 0.2.0 implements staged migration review. Each stage checks all
+declared coexisting weighted policies, checks named outages and points to the
+first failure. See migration.md, architecture.md and competition.md. Preserve
+the repository history and the existing 0.1.0 package.
+
+Use the same pinned verification entry point before source upload. Verify
+Windows and Ubuntu CI, the actual publisher archive, and a fresh exact-version
+Mooncakes consumer. Record those receipts independently in acceptance.md.
+The desktop proposal is for review in the original registration form.
+
 # MoonQuorum handoff — 2026-11-16
 
 Active project: C:/Users/XJY/Desktop/moonbit-quorum. Version0.1.0 published and verified.

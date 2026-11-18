@@ -23,3 +23,12 @@ constraints, JSON query language or patch processing. Host I/O and development
 infrastructure are reused with attribution; weighted analysis and tests are new.
 The mathematical problem and knapsack algorithm are established techniques,
 not claimed inventions. The deliverable is a bounded, checkable MoonBit API/CLI.
+
+## Migration scope update — 2026-11-18
+
+The new workflow checks explicit coexistence and outage models offline. It can
+be used before a protocol-specific rollout. MoonRaft owns a Raft implementation
+and membership behavior. MoonQuorum uses arbitrary supplied weights and compares
+static threshold families over several steps. The tool relies on the caller
+to enumerate the policies that may coexist. This comparison describes the
+reviewed libraries and does not establish that all MoonBit alternatives were found.

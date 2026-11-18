@@ -1,17 +1,31 @@
 # MoonQuorum
 
-An offline MoonBit library and CLI for reviewing **two global weighted threshold policies**.
-It determines whether every left quorum intersects every right quorum, or returns
-two disjoint member sets as a checkable counterexample. It also reports whether
-each threshold is still reachable after a supplied list of unavailable members.
+An offline MoonBit library and CLI for reviewing **staged weighted voting
+configuration changes**. It checks the policies that can coexist at each rollout
+step, finds disjoint voter sets as counterexamples, and locates threshold
+shortfalls under named outages. The original two-policy API remains available.
 
 [中文说明](README.zh-CN.md) · Apache-2.0 · Pure MoonBit core · JS backend
 
-Version 0.1.0. Repository: [JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum).
+Version 0.2.0. Repository: [JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum).
 Published: [JingLan0v0/quorum@0.1.0](https://mooncakes.io/docs/JingLan0v0/quorum@0.1.0).
 Actual registry and CI receipts: [acceptance](docs/acceptance.md).
 
-## Three scenarios
+## Review a migration
+
+```sh
+moon run cmd/main --target js -- --migration examples/migration-ready.json
+moon run cmd/main --target js -- --migration examples/migration-bridge.json
+moon run cmd/main --target js -- --migration examples/migration-outage.json
+moon run examples/migration --target js
+```
+
+These examples check a viable rollout, a disjoint quorum in a bridge stage, and
+an outage that leaves a policy one vote short. `check_migration` exposes typed
+stage results. `analyze_migration` and `analyze_migration_batch` expose the same
+checks as JSON. See [request schema, results and examples](docs/migration.md).
+
+## Two-policy scenarios
 
 | Scenario | Command argument | Result and decision |
 |---|---|---|
@@ -102,7 +116,9 @@ node scripts/verify.mjs
 The verifier checks debug and release against an independent enumeration of all
 pairs of subsets for 6,561 three-voter weighted-policy cases, validates every
 counterexample and outage result, tests malformed input/budgets/process I/O, and
-runs all examples. Finite tests are not a proof over every supported input.
+runs all examples. It also checks 1,728 exhaustive and 256 seeded migration
+plans in each mode, recomputing capacity and validating the reported stages and
+witness memberships. The verifier builds a fresh CLI and records its digest.
 Windows/Ubuntu CI is configured; actual run receipts are recorded separately. See [actual evidence](docs/acceptance.md),
 [architecture](docs/architecture.md), [ecosystem comparison](docs/ecosystem.md),
 [competition checklist](docs/competition.md) and [publishing](docs/publishing.md).

@@ -1,6 +1,6 @@
 name = "JingLan0v0/quorum"
 
-version = "0.1.0"
+version = "0.2.0"
 
 repository = "https://github.com/JingLan0v0/MoonQuorum"
 
@@ -12,6 +12,6 @@ preferred_target = "js"
 
 supported_targets = "js"
 
-description = "Bounded weighted quorum intersection checks with disjoint witnesses and outage analysis."
+description = "Staged weighted quorum migration reviews with checkable disjoint witnesses and per-policy outage capacity."
 
 keywords = [ "quorum", "configuration", "weighted-voting" ]

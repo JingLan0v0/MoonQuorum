@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import {createHash} from 'node:crypto';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import assert from 'node:assert/strict';
@@ -12,7 +13,19 @@ const installation=candidates.find(p=>fs.existsSync(path.join(p,'bin',process.pl
 if(installation)process.env.MOON_HOME=installation;
 const moon=process.env.MOON_BIN || (installation?path.join(installation,'bin',process.platform==='win32'?'moon.exe':'moon'):'moon');
 function run(cmd,args,options={}){const r=spawnSync(cmd,args,{cwd:root,encoding:'utf8',timeout:120000,maxBuffer:16*1024*1024,...options});assert.equal(r.error,undefined);assert.equal(r.status,0,r.stderr||r.stdout);return r.stdout;}
-const versions=run(moon,['version','--all']);assert(versions.includes('v0.10.18+6c83a7f62'),'Use the pinned toolchain');
+const pin = JSON.parse(fs.readFileSync('toolchain.json', 'utf8'));
+const versions = run(moon, ['version', '--all']);
+assert.equal(versions.match(/^moon (\S+)/m)?.[1], pin.moon, 'Use the pinned moon');
+assert.equal(versions.match(/^moonc (\S+)/m)?.[1], pin.moonc, 'Use the pinned moonc');
+assert.equal(process.versions.node, pin.node_tested, 'Use the pinned Node.js');
+const sourceCommit = fs.existsSync('.git') ? run('git', ['rev-parse', 'HEAD']).trim() : null;
+function verifyCiCheckout() {
+  if (process.env.GITHUB_ACTIONS !== 'true') return;
+  assert.equal(sourceCommit, process.env.GITHUB_SHA, 'Verify the intended CI commit');
+  assert.equal(run('git', ['rev-parse', 'HEAD']).trim(), sourceCommit, 'CI HEAD changed');
+  assert.equal(run('git', ['status', '--porcelain']).trim(), '', 'CI checkout must be clean');
+}
+verifyCiCheckout();
 run(moon,['fmt','--check']);run(moon,['check','--target','js','--deny-warn']);run(moon,['info','--target','js']);
 const reports=[];
 const cases=[];
@@ -50,8 +63,12 @@ for(const mode of ['debug','release']){
  assert.equal(run(moon,['run','examples/migration','--target','js','--deny-warn',...flags]).trim(),'PASS migration API: isolated outage shortfall in joint stage');
  const units=run(moon,['test','--target','js','--deny-warn',...flags]);process.stdout.write(units);
  assert.equal(run(moon,['run','examples/library','--target','js','--deny-warn',...flags]).trim(),'PASS public API: disjoint witness and outage analysis');
- run(moon,['build','cmd/main','--target','js','--deny-warn',...flags]);
  const cli=path.join(root,`_build/js/${mode}/build/cmd/main/main.js`);
+ fs.rmSync(cli, {force:true});
+ run(moon,['build','cmd/main','--target','js','--deny-warn',...flags]);
+ const artifact=fs.readFileSync(cli);
+ assert(artifact.length > 0, 'CLI build produced an empty artifact');
+ const cliSha256=createHash('sha256').update(artifact).digest('hex');
  const invoke=(args,input)=>spawnSync(process.execPath,['--max-old-space-size=192',cli,...args],{input,encoding:'utf8',timeout:15000,maxBuffer:4*1024*1024});
  const batch=reqs=>{const r=invoke(['--batch','-'],JSON.stringify(reqs));assert.equal(r.error,undefined);assert.equal(r.status,0,r.stderr);return JSON.parse(r.stdout);};
  for(let start=0;start<cases.length;start+=64){const reqs=cases.slice(start,start+64),out=batch(reqs);assert.equal(out.length,reqs.length);out.forEach((v,i)=>validate(reqs[i],v));}
@@ -65,7 +82,7 @@ for(const mode of ['debug','release']){
  const bom=invoke(['-'],'\ufeff'+JSON.stringify(good));assert.equal(bom.status,0,bom.stderr);
  assert.deepEqual(batch([]),[]);
  for(const args of [[],['--unknown'],['x','y'],['missing-file.json']]){const r=invoke(args,'');assert.equal(r.status,2);assert.equal(r.stdout,'');}
- assert.equal(invoke(['--version'],'').stdout.trim(),'0.1.0');
+ assert.equal(invoke(['--version'],'').stdout.trim(),'0.2.0');
  assert(invoke(['--help'],'').stdout.includes('moon-quorum'));
  const fd=fs.openSync(path.join(root,'moon.mod'),'r');try{assert.equal(spawnSync(process.execPath,[cli,'--version'],{stdio:['ignore',fd,'pipe'],encoding:'utf8',timeout:15000}).status,2);}finally{fs.closeSync(fd);}
  for(const name of ['read-write','rollout','maintenance']){const req=JSON.parse(fs.readFileSync(`examples/${name}.json`,'utf8')),r=invoke([`examples/${name}.json`],'');assert.equal(r.status,0,r.stderr);validate(req,JSON.parse(r.stdout));}
@@ -73,7 +90,10 @@ for(const mode of ['debug','release']){
  const large={members:Array.from({length:32},(_,i)=>({id:`n${i}`,left_weight:128,right_weight:128})),left_threshold:4096,right_threshold:4096};
  const result=batch([{...large,max_steps:32*4097-1},{...large,max_steps:32*4097}]);assert.equal(result[0].code,'limit_exceeded');assert.equal(result[1].status,'intersecting');
  const migration=verifyMigration(invoke,mode);
- reports.push({mode,migration,unitTests:units.trim(),exhaustivePolicyCases:cases.length,invalidBatchItems:bad.length,transportRejects:transport.length+1,scenarios:['read-write','rollout','maintenance']});
+ reports.push({mode,migration,cliSha256,unitTests:units.trim(),exhaustivePolicyCases:cases.length,invalidBatchItems:bad.length,transportRejects:transport.length+1,scenarios:['read-write','rollout','maintenance']});
  console.log(`PASS ${mode}: limits, batch isolation, I/O and three scenarios`);
 }
-fs.writeFileSync(summary,JSON.stringify({status:'passed',recordedAt:new Date().toISOString(),node:process.version,reports},null,2)+'\n');
+verifyCiCheckout();
+const receipt = {status:'passed', recordedAt:new Date().toISOString(), sourceCommit, toolchain:pin, reports};
+fs.writeFileSync(summary + '.tmp', JSON.stringify(receipt, null, 2) + '\n');
+fs.renameSync(summary + '.tmp', summary);
