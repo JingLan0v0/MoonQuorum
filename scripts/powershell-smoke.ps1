@@ -13,5 +13,11 @@ try {
     $expected=if ($scenario -ne 'read-write') {'disjoint'} else {'intersecting'}
     if (($output | ConvertFrom-Json).status -ne $expected) { throw 'Unexpected scenario result' }
   }
+  foreach ($scenario in @('migration-ready','migration-bridge','migration-outage')) {
+    $output=& $wrapper run cmd/main --target js -- --migration (Join-Path $root "examples/$scenario.json")
+    if ($LASTEXITCODE -ne 0) { throw "Migration scenario failed: $scenario" }
+    $expected=if ($scenario -eq 'migration-ready') {'ready'} else {'blocked'}
+    if (($output | ConvertFrom-Json).status -ne $expected) { throw "Unexpected migration result: $scenario" }
+  }
 } finally { Pop-Location }
-Write-Host 'PASS PowerShell pipeline, three scenarios and directory restoration'
+Write-Host 'PASS PowerShell pipeline, six scenarios and directory restoration'

@@ -10,6 +10,10 @@ pub fn analyze(Json) -> Json raise QuorumError
 
 pub fn analyze_batch(Json) -> Json raise QuorumError
 
+pub fn analyze_migration(Json) -> Json raise QuorumError
+
+pub fn analyze_migration_batch(Json) -> Json raise QuorumError
+
 pub fn availability(Pair, Array[String]) -> (Int32, Int32, Bool, Bool) raise QuorumError
 
 pub fn check_intersection(Pair, max_steps? : Int32) -> Intersection raise QuorumError

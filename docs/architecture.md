@@ -37,3 +37,31 @@ but finite and restricted to small weights. Separate tests cover 32 members,
 
 core.mbt owns validation/reasoning; json.mbt owns exchange. cmd/main/host.mbt owns
 Node file/process I/O only. scripts/verify.mjs is test code, not a runtime solver.
+
+## Staged migration
+
+Input declares named weighted policies, ordered stages, and the policy IDs that
+can coexist in each stage. Each stage checks unordered active-policy pairs with
+repetition, including self-intersection. Pair keys use the numeric indices from
+validation; that supplies a canonical orientation independent of stage order.
+The hash table stores only evaluated pairs and is local to one request.
+
+Build each comparison over the union of its voter IDs and reuse the existing
+exact weighted intersection solver. The shared budget charges the precise
+number of states the solver visits (union size times left threshold plus one,
+with the threshold incremented before multiplication). Reserve this cost before
+calling the solver. A short budget aborts the whole request without a partial
+conclusion. Outages subtract each named voter's contribution from the total of
+each active policy. They are independently evaluated against its threshold.
+
+The pair solver's complement can include voters whose weight on its right side
+is zero. The migration report filters each witness to voters listed in that
+policy. This preserves the sums and disjointness and gives each stage a fresh
+array so caller edits cannot affect another occurrence of the pair. The two-policy
+interface retains its original witness semantics.
+
+The independent migration oracle constructs all threshold-reaching subsets
+for each policy, compares every declared pair, checks returned witness membership
+and sums, recomputes capacity, and checks the first failing stage. It covers all
+1,728 triples in a three-voter binary-weight family and 256 deterministic seeded
+weighted plans. These cases complement the existing 6,561 pair-policy cases.

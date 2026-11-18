@@ -103,15 +103,27 @@ pub fn analyze(value : Json) -> Json raise QuorumError {
 
 ///|
 pub fn analyze_batch(value : Json) -> Json raise QuorumError {
+  analyze_requests(value, analyze)
+}
+
+///|
+fn analyze_requests(
+  value : Json,
+  analyze_one : (Json) -> Json raise QuorumError,
+  limit~ : Int32 = 64,
+) -> Json raise QuorumError {
   guard value is Array(xs) else {
     raise QuorumError("invalid_input", "batch must be an array")
   }
-  if xs.length() > 64 {
-    raise QuorumError("limit_exceeded", "at most 64 batch items")
+  if xs.length() > limit {
+    raise QuorumError(
+      "limit_exceeded",
+      "at most " + limit.to_string() + " batch items",
+    )
   }
   Json::array(
     xs.map(x => {
-      analyze(x) catch {
+      analyze_one(x) catch {
         QuorumError(code, msg) =>
           Json::object(
             Map([

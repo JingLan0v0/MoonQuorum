@@ -97,3 +97,23 @@ test "a single active policy can violate self-intersection" {
   assert_eq(conflict.left_witness, ["a"])
   assert_eq(conflict.right_witness, ["b"])
 }
+
+///|
+test "migration conflict lists only voters in each policy" {
+  let report = @quorum.check_migration(
+    [
+      {
+        id: "old",
+        voters: [{ id: "a", weight: 1, }, { id: "b", weight: 1, }],
+        threshold: 1,
+      },
+      { id: "new", voters: [{ id: "c", weight: 1, }], threshold: 1, },
+    ],
+    [{ id: "joint", active: ["old", "new"], outages: [], }],
+  )
+  let conflict = report.stages[0].conflicts[1]
+  assert_eq(conflict.left_policy, "old")
+  assert_eq(conflict.right_policy, "new")
+  assert_eq(conflict.left_witness, ["a"])
+  assert_eq(conflict.right_witness, ["c"])
+}

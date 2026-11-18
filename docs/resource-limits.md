@@ -29,3 +29,24 @@ invalid_input: schema/model/option values; invalid_json: grammar/duplicate keys;
 limit_exceeded: resource boundary or exhausted budget. Host I/O is a CLI diagnostic.
 Single error exits2; valid intersecting/disjoint exits0; item errors in a parsed
 batch remain exit0 and must be inspected. No real-time/memory SLA is claimed.
+
+## Migration requests
+
+| Input | Limit |
+|---|---|
+| Named policies | 1..8, unique IDs |
+| Distinct voters across all policies | 1..32 |
+| Per-policy voter weight | Integer 1..1000, total <=4096 |
+| Ordered stages | 1..16, unique IDs |
+| Active policies in each stage | 1..8, unique known IDs |
+| Outages in each stage | 0..8, unique scenario IDs within the stage |
+| Voters unavailable in one outage | 0..32, unique known IDs |
+| Shared pair comparison budget | Default 1000000, accepted 1..2000000 per plan |
+| Migration batch | 0..16 plans, independent budgets and item errors |
+
+The outer JSON/text limits above also apply. At most 36 distinct unordered
+policy comparisons, including self-comparisons, can be executed. Each is
+charged once. A stage includes at most 36 conflict records and 64 per-policy
+outage capacity records. Failed analysis raises `limit_exceeded` without a
+report. An evaluated but blocked migration is a valid result with exit 0. Read
+`status` and `first_failed_stage` when gating a rollout.

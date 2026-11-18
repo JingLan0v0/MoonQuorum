@@ -1,0 +1,77 @@
+{
+  "policies": [
+    {
+      "id": "old",
+      "voters": [
+        {
+          "id": "a",
+          "weight": 2
+        },
+        {
+          "id": "b",
+          "weight": 1
+        },
+        {
+          "id": "c",
+          "weight": 1
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "id": "new",
+      "voters": [
+        {
+          "id": "a",
+          "weight": 3
+        },
+        {
+          "id": "c",
+          "weight": 1
+        },
+        {
+          "id": "d",
+          "weight": 1
+        }
+      ],
+      "threshold": 4
+    }
+  ],
+  "stages": [
+    {
+      "id": "before",
+      "active": [
+        "old"
+      ],
+      "outages": []
+    },
+    {
+      "id": "overlap",
+      "active": [
+        "old",
+        "new"
+      ],
+      "outages": [
+        {
+          "id": "b-offline",
+          "unavailable": [
+            "b"
+          ]
+        },
+        {
+          "id": "d-offline",
+          "unavailable": [
+            "d"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "after",
+      "active": [
+        "new"
+      ],
+      "outages": []
+    }
+  ]
+}

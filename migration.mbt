@@ -251,8 +251,8 @@ pub fn check_migration(
             conflicts.push({
               left_policy: policies[left].id,
               right_policy: policies[right].id,
-              left_witness: l.copy(),
-              right_witness: r.copy(),
+              left_witness: l.filter(id => policies[left].weights.contains(id)),
+              right_witness: r.filter(id => policies[right].weights.contains(id)),
             })
         }
       }

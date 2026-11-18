@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import assert from 'node:assert/strict';
+import {verifyMigration} from './verify-migration.mjs';
 const root=path.resolve(import.meta.dirname,'..');
 process.chdir(root);
 const summary=path.join(root,'_build/verification-summary.json');
@@ -46,6 +47,7 @@ for(let code=0;code<729;code++){
 assert.equal(cases.length,6561);
 for(const mode of ['debug','release']){
  const flags=mode==='release'?['--release']:[];
+ assert.equal(run(moon,['run','examples/migration','--target','js','--deny-warn',...flags]).trim(),'PASS migration API: isolated outage shortfall in joint stage');
  const units=run(moon,['test','--target','js','--deny-warn',...flags]);process.stdout.write(units);
  assert.equal(run(moon,['run','examples/library','--target','js','--deny-warn',...flags]).trim(),'PASS public API: disjoint witness and outage analysis');
  run(moon,['build','cmd/main','--target','js','--deny-warn',...flags]);
@@ -70,7 +72,8 @@ for(const mode of ['debug','release']){
  // Exact work boundary at the maximum supported table size.
  const large={members:Array.from({length:32},(_,i)=>({id:`n${i}`,left_weight:128,right_weight:128})),left_threshold:4096,right_threshold:4096};
  const result=batch([{...large,max_steps:32*4097-1},{...large,max_steps:32*4097}]);assert.equal(result[0].code,'limit_exceeded');assert.equal(result[1].status,'intersecting');
- reports.push({mode,unitTests:units.trim(),exhaustivePolicyCases:cases.length,invalidBatchItems:bad.length,transportRejects:transport.length+1,scenarios:['read-write','rollout','maintenance']});
+ const migration=verifyMigration(invoke,mode);
+ reports.push({mode,migration,unitTests:units.trim(),exhaustivePolicyCases:cases.length,invalidBatchItems:bad.length,transportRejects:transport.length+1,scenarios:['read-write','rollout','maintenance']});
  console.log(`PASS ${mode}: limits, batch isolation, I/O and three scenarios`);
 }
 fs.writeFileSync(summary,JSON.stringify({status:'passed',recordedAt:new Date().toISOString(),node:process.version,reports},null,2)+'\n');
