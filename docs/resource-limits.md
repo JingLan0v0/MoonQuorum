@@ -18,6 +18,10 @@
 Unknown fields, duplicate JSON keys, duplicate IDs, fractional/out-of-range
 numbers and unknown outage IDs fail. Zero threshold is invalid even for an empty
 policy; unattainable thresholds are errors rather than vacuous intersection claims.
+The text parser preserves numeric spellings. Integer fields validate the exact
+decimal value before accepting the decoded numeric value. Integral exponent and
+decimal forms remain supported. A direct Json number with a supplied spelling
+must agree with its decoded value. A bare number has only its decoded value.
 Both-zero members are allowed and harmless; neither policy counts their weight.
 
 Each DP state visit charges one step. Validation, witness generation and

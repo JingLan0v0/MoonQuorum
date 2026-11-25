@@ -20,10 +20,16 @@ fn required(obj : Map[String, Json], key : String) -> Json raise QuorumError {
 
 ///|
 fn integer(v : Json) -> Int32 raise QuorumError {
-  guard v is Number(n, ..) && n >= 0.0 && n <= 2000000.0 && n.floor() == n else {
+  guard v is Number(n, repr~) && n >= 0.0 && n <= 2000000.0 && n.floor() == n else {
     raise QuorumError("invalid_input", "expected bounded nonnegative integer")
   }
-  n.to_int()
+  let decoded = n.to_int()
+  if repr is Some(spelling) && exact_bounded_integer(spelling) != Some(decoded) {
+    raise QuorumError(
+      "invalid_input", "expected exact bounded nonnegative integer",
+    )
+  }
+  decoded
 }
 
 ///|
@@ -184,7 +190,12 @@ pub fn parse_json(source : String) -> Json raise QuorumError {
       }
     }
   }
-  @json.parse(source, max_nesting_depth=16, reject_duplicate_keys=true) catch {
+  @json.parse(
+    source,
+    max_nesting_depth=16,
+    reject_duplicate_keys=true,
+    preserve_number_repr=true,
+  ) catch {
     _ => raise QuorumError("invalid_json", "invalid JSON text")
   }
 }
