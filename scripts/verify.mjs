@@ -4,6 +4,7 @@ import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import assert from 'node:assert/strict';
 import {verifyMigration} from './verify-migration.mjs';
+import {verifyResilience} from './verify-resilience.mjs';
 const root=path.resolve(import.meta.dirname,'..');
 process.chdir(root);
 const summary=path.join(root,'_build/verification-summary.json');
@@ -82,7 +83,7 @@ for(const mode of ['debug','release']){
  const bom=invoke(['-'],'\ufeff'+JSON.stringify(good));assert.equal(bom.status,0,bom.stderr);
  assert.deepEqual(batch([]),[]);
  for(const args of [[],['--unknown'],['x','y'],['missing-file.json']]){const r=invoke(args,'');assert.equal(r.status,2);assert.equal(r.stdout,'');}
- assert.equal(invoke(['--version'],'').stdout.trim(),'0.2.0');
+ assert.equal(invoke(['--version'],'').stdout.trim(),'0.3.0');
  assert(invoke(['--help'],'').stdout.includes('moon-quorum'));
  const fd=fs.openSync(path.join(root,'moon.mod'),'r');try{assert.equal(spawnSync(process.execPath,[cli,'--version'],{stdio:['ignore',fd,'pipe'],encoding:'utf8',timeout:15000}).status,2);}finally{fs.closeSync(fd);}
  for(const name of ['read-write','rollout','maintenance']){const req=JSON.parse(fs.readFileSync(`examples/${name}.json`,'utf8')),r=invoke([`examples/${name}.json`],'');assert.equal(r.status,0,r.stderr);validate(req,JSON.parse(r.stdout));}
@@ -90,7 +91,8 @@ for(const mode of ['debug','release']){
  const large={members:Array.from({length:32},(_,i)=>({id:`n${i}`,left_weight:128,right_weight:128})),left_threshold:4096,right_threshold:4096};
  const result=batch([{...large,max_steps:32*4097-1},{...large,max_steps:32*4097}]);assert.equal(result[0].code,'limit_exceeded');assert.equal(result[1].status,'intersecting');
  const migration=verifyMigration(invoke,mode);
- reports.push({mode,migration,cliSha256,unitTests:units.trim(),exhaustivePolicyCases:cases.length,invalidBatchItems:bad.length,transportRejects:transport.length+1,scenarios:['read-write','rollout','maintenance']});
+ const resilience=verifyResilience(invoke,mode);
+ reports.push({mode,migration,resilience,cliSha256,unitTests:units.trim(),exhaustivePolicyCases:cases.length,invalidBatchItems:bad.length,transportRejects:transport.length+1,scenarios:['read-write','rollout','maintenance']});
  console.log(`PASS ${mode}: limits, batch isolation, I/O and three scenarios`);
 }
 verifyCiCheckout();

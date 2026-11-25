@@ -7,6 +7,13 @@
 已发布 **[JingLan0v0/quorum@0.2.0](https://mooncakes.io/docs/JingLan0v0/quorum@0.2.0)**，实际回执见 [验收记录](docs/acceptance.md)。
 公开仓库：[JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum)。
 
+## 一键复现故障域检查
+
+按 `toolchain.json` 安装固定工具链，在项目根目录运行 `node examples/demo.mjs`。
+五个投票节点都能承受任意单节点下线，但如果三个投票者集中在同一机房，整间机房
+停机会把剩余权重降到 2，达不到阈值 3。重新分布后，最坏情况下仍可达到 3。
+演示还会验证首个受影响的迁移阶段和重复归属节点的输入拒绝。[格式与算法](docs/resilience.md)
+
 ## 安装库
 
 ```sh

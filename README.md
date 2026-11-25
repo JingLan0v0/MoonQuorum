@@ -7,9 +7,20 @@ shortfalls under named outages. The original two-policy API remains available.
 
 [中文说明](README.zh-CN.md) · Apache-2.0 · Pure MoonBit core · JS backend
 
-Version 0.2.0. Repository: [JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum).
+Source version 0.3.0. Repository: [JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum).
 Published: [JingLan0v0/quorum@0.2.0](https://mooncakes.io/docs/JingLan0v0/quorum@0.2.0).
 Actual registry and CI receipts: [acceptance](docs/acceptance.md).
+
+## Run the verified failure-domain scenarios
+
+Install the pinned versions from toolchain.json and run from the repository root:
+
+    node examples/demo.mjs
+
+The command builds the CLI and checks a concentrated layout, a balanced layout,
+the first affected migration stage, and invalid overlapping domains. Use
+`--resilience` to evaluate a file or `--resilience-batch` to check several
+plans. See the [input and output contract](docs/resilience.md).
 
 ## Review a migration
 

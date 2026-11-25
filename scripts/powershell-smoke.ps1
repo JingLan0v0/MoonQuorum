@@ -19,5 +19,11 @@ try {
     $expected=if ($scenario -eq 'migration-ready') {'ready'} else {'blocked'}
     if (($output | ConvertFrom-Json).status -ne $expected) { throw "Unexpected migration result: $scenario" }
   }
+
+  $domainPath=Join-Path $root 'examples/resilience-balanced.json'
+  $result=Get-Content -LiteralPath $domainPath -Raw | & $wrapper run cmd/main --target js -- --resilience -
+  if ($LASTEXITCODE -ne 0 -or ($result | ConvertFrom-Json).policies[0].worst_remaining -ne 3) {
+    throw 'Failure-domain stdin check failed'
+  }
 } finally { Pop-Location }
-Write-Host 'PASS PowerShell pipeline, six scenarios and directory restoration'
+Write-Host 'PASS PowerShell pipeline, migration and failure-domain scenarios'

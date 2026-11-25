@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0
+
+- Analyze simultaneous failure domains and produce exact minimum outage witnesses
+  with the earliest failing migration stage.
+- Reject fractional or inconsistent JSON number spellings that float conversion
+  previously hid. Preserve exact integral exponent and decimal forms.
+- Reproduce core scenarios with one command and verify them against independent
+  subset enumeration and exact integer arithmetic.
+
 ## 0.2.0 — published, 2026-11-18
 
 - Check each declared coexistence stage, including self-intersection.
