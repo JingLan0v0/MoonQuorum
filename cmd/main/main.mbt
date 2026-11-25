@@ -8,7 +8,7 @@ fn main {
   }
   if args.length() == 1 && args[0] == "--help" {
     write_stdout(
-      "moon-quorum [--batch|--migration|--migration-batch] <request.json|->\nChecks weighted policy intersections and staged migration plans.\n",
+      "moon-quorum [--batch|--migration|--migration-batch|--resilience|--resilience-batch] <request.json|->\nChecks quorum intersections, staged migration and fault domains.\n",
     )
     return
   }
@@ -25,11 +25,13 @@ fn main {
       (
         mode == "--batch" ||
         mode == "--migration" ||
-        mode == "--migration-batch"
+        mode == "--migration-batch" ||
+        mode == "--resilience" ||
+        mode == "--resilience-batch"
       )
     )) {
     write_stderr(
-      "usage: moon-quorum [--batch|--migration|--migration-batch] <request.json|->\n",
+      "usage: moon-quorum [--batch|--migration|--migration-batch|--resilience|--resilience-batch] <request.json|->\n",
     )
     set_exit(2)
     return
@@ -52,6 +54,8 @@ fn main {
       "--batch" => @quorum.analyze_batch(value)
       "--migration" => @quorum.analyze_migration(value)
       "--migration-batch" => @quorum.analyze_migration_batch(value)
+      "--resilience" => @quorum.analyze_resilience(value)
+      "--resilience-batch" => @quorum.analyze_resilience_batch(value)
       _ => @quorum.analyze(value)
     }
     write_stdout(result.stringify() + "\n")

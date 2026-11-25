@@ -1,0 +1,93 @@
+{
+  "policies": [
+    {
+      "id": "majority",
+      "voters": [
+        {
+          "id": "a",
+          "weight": 1
+        },
+        {
+          "id": "b",
+          "weight": 1
+        },
+        {
+          "id": "c",
+          "weight": 1
+        },
+        {
+          "id": "d",
+          "weight": 1
+        },
+        {
+          "id": "e",
+          "weight": 1
+        }
+      ],
+      "threshold": 3
+    }
+  ],
+  "stages": [
+    {
+      "id": "rollout",
+      "active": [
+        "majority"
+      ],
+      "outages": [
+        {
+          "id": "node-a",
+          "unavailable": [
+            "a"
+          ]
+        },
+        {
+          "id": "node-b",
+          "unavailable": [
+            "b"
+          ]
+        },
+        {
+          "id": "node-c",
+          "unavailable": [
+            "c"
+          ]
+        },
+        {
+          "id": "node-d",
+          "unavailable": [
+            "d"
+          ]
+        },
+        {
+          "id": "node-e",
+          "unavailable": [
+            "e"
+          ]
+        }
+      ]
+    }
+  ],
+  "max_domain_failures": 1,
+  "failure_domains": [
+    {
+      "id": "east",
+      "voters": [
+        "a",
+        "b"
+      ]
+    },
+    {
+      "id": "west",
+      "voters": [
+        "c",
+        "d"
+      ]
+    },
+    {
+      "id": "north",
+      "voters": [
+        "e"
+      ]
+    }
+  ]
+}

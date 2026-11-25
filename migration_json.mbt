@@ -114,9 +114,9 @@ fn encode_stage_report(report : StageReport) -> Json {
 }
 
 ///|
-pub fn analyze_migration(value : Json) -> Json raise QuorumError {
-  let obj = request_object(value, "migration request")
-  fields(obj, ["policies", "stages", "max_steps"])
+fn read_migration_model(
+  obj : Map[String, Json],
+) -> (Array[PolicySpec], Array[MigrationStage], Int32) raise QuorumError {
   let policies = request_array(required(obj, "policies"), "policies", 8).map(
     read_policy,
   )
@@ -127,7 +127,11 @@ pub fn analyze_migration(value : Json) -> Json raise QuorumError {
     None => 1000000
     Some(v) => integer(v)
   }
-  let report = check_migration(policies, stages, max_steps=steps)
+  (policies, stages, steps)
+}
+
+///|
+fn encode_migration_report(report : MigrationReport) -> Json {
   let (status, first) = match report.first_failed_stage {
     None => ("ready", Json::null())
     Some(id) => ("blocked", Json::string(id))
@@ -141,6 +145,14 @@ pub fn analyze_migration(value : Json) -> Json raise QuorumError {
       ("work_steps", count_json(report.work_steps)),
     ]),
   )
+}
+
+///|
+pub fn analyze_migration(value : Json) -> Json raise QuorumError {
+  let obj = request_object(value, "migration request")
+  fields(obj, ["policies", "stages", "max_steps"])
+  let (policies, stages, steps) = read_migration_model(obj)
+  encode_migration_report(check_migration(policies, stages, max_steps=steps))
 }
 
 ///|

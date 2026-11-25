@@ -14,11 +14,17 @@ pub fn analyze_migration(Json) -> Json raise QuorumError
 
 pub fn analyze_migration_batch(Json) -> Json raise QuorumError
 
+pub fn analyze_resilience(Json) -> Json raise QuorumError
+
+pub fn analyze_resilience_batch(Json) -> Json raise QuorumError
+
 pub fn availability(Pair, Array[String]) -> (Int32, Int32, Bool, Bool) raise QuorumError
 
 pub fn check_intersection(Pair, max_steps? : Int32) -> Intersection raise QuorumError
 
 pub fn check_migration(Array[PolicySpec], Array[MigrationStage], max_steps? : Int32) -> MigrationReport raise QuorumError
+
+pub fn check_resilience(Array[PolicySpec], Array[MigrationStage], Array[FailureDomain], Int32, max_steps? : Int32) -> ResilienceReport raise QuorumError
 
 pub fn pair(Array[Member], Int32, Int32) -> Pair raise QuorumError
 
@@ -34,6 +40,20 @@ pub(all) suberror QuorumError {
 }
 
 // Types and methods
+pub(all) struct DomainRisk {
+  policy : String
+  threshold : Int32
+  minimum_failures : Int32
+  witness_domains : Array[String]
+  witness_remaining : Int32
+  worst_remaining : Int32
+}
+
+pub(all) struct FailureDomain {
+  id : String
+  voters : Array[String]
+}
+
 pub(all) enum Intersection {
   Intersecting
   Disjoint(Array[String], Array[String])
@@ -97,6 +117,13 @@ pub(all) struct PolicySpec {
   id : String
   voters : Array[Voter]
   threshold : Int32
+}
+
+pub(all) struct ResilienceReport {
+  migration : MigrationReport
+  max_domain_failures : Int32
+  policies : Array[DomainRisk]
+  first_failed_stage : String?
 }
 
 pub(all) struct StageReport {

@@ -1,0 +1,93 @@
+{
+  "policies": [
+    {
+      "id": "old",
+      "voters": [
+        {
+          "id": "a",
+          "weight": 1
+        },
+        {
+          "id": "b",
+          "weight": 1
+        },
+        {
+          "id": "c",
+          "weight": 1
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "id": "new",
+      "voters": [
+        {
+          "id": "a",
+          "weight": 2
+        },
+        {
+          "id": "b",
+          "weight": 1
+        },
+        {
+          "id": "c",
+          "weight": 1
+        }
+      ],
+      "threshold": 3
+    }
+  ],
+  "stages": [
+    {
+      "id": "before",
+      "active": [
+        "old"
+      ],
+      "outages": []
+    },
+    {
+      "id": "coexistence",
+      "active": [
+        "old",
+        "new"
+      ],
+      "outages": []
+    },
+    {
+      "id": "maintenance",
+      "active": [
+        "new"
+      ],
+      "outages": [
+        {
+          "id": "two-nodes",
+          "unavailable": [
+            "a",
+            "b"
+          ]
+        }
+      ]
+    }
+  ],
+  "failure_domains": [
+    {
+      "id": "east",
+      "voters": [
+        "a"
+      ]
+    },
+    {
+      "id": "west",
+      "voters": [
+        "b"
+      ]
+    },
+    {
+      "id": "north",
+      "voters": [
+        "c"
+      ]
+    }
+  ],
+  "max_domain_failures": 1
+}
