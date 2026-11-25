@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.0
+## 0.3.0 — published, 2026-11-25
 
 - Analyze simultaneous failure domains and produce exact minimum outage witnesses
   with the earliest failing migration stage.

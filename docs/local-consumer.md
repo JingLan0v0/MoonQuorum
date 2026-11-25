@@ -1,6 +1,6 @@
 # Local library consumer (source development)
 
-For the published version use `moon add JingLan0v0/quorum@0.2.0` without a
+For the published version use `moon add JingLan0v0/quorum@0.3.0` without a
 workspace override. The steps below deliberately test local source.
 
 Create a separate directory with moon.mod:
@@ -9,7 +9,7 @@ Create a separate directory with moon.mod:
 name = "local/quorum_consumer"
 version = "0.0.0"
 preferred_target = "js"
-import { "JingLan0v0/quorum@0.2.0" }
+import { "JingLan0v0/quorum@0.3.0" }
 ```
 
 Add moon.pkg:

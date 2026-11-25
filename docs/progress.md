@@ -1,3 +1,14 @@
+# MoonQuorum 0.3.0 — 2026-11-25
+
+Published source `05cc1591aebbf228bb7213788a7788ba8611bfef` implements correlated failure-domain witnesses
+and validates exact decimal integer input. The one-command MVP
+`node examples/demo.mjs`, the Windows/Ubuntu CI, extracted package and
+fresh registry installation all passed. Details in acceptance.md and
+publication-0.3.0.json. The revised desktop proposal includes actual source,
+test and package links.
+
+Earlier release evidence follows.
+
 # Active revision — 2026-11-18
 
 MoonQuorum 0.2.0 implements staged migration review. Each stage checks all

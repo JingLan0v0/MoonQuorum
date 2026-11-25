@@ -1,0 +1,128 @@
+{
+  "version": "0.3.0",
+  "sourceCommit": "05cc1591aebbf228bb7213788a7788ba8611bfef",
+  "registryEntry": {
+    "name": "JingLan0v0/quorum",
+    "readme": "README.md",
+    "yanked": false,
+    "license": "Apache-2.0",
+    "version": "0.3.0",
+    "checksum": "07bc2a70269a6cb2d5914dac8a26a29842139e72383e8c4c526d89831e9c0910",
+    "keywords": [
+      "quorum",
+      "configuration",
+      "weighted-voting"
+    ],
+    "created_at": "2026-11-25T10:33:42.734299+00:00",
+    "repository": "https://github.com/JingLan0v0/MoonQuorum",
+    "description": "Staged weighted quorum migration reviews with checkable disjoint witnesses and per-policy outage capacity.",
+    "yanked_reason": null,
+    "preferred-target": "js",
+    "supported-targets": "js"
+  },
+  "packageFiles": 61,
+  "packageExtraction": {
+    "status": "passed",
+    "recordedAt": "2026-11-25T10:33:07.343Z",
+    "sourceCommit": null,
+    "toolchain": {
+      "moonbit_install_version": "0.10.18+6c83a7f62",
+      "moon": "0.1.20261028",
+      "moonc": "v0.10.18+6c83a7f62",
+      "node_tested": "24.14.0",
+      "backend": "js"
+    },
+    "reports": [
+      {
+        "mode": "debug",
+        "migration": {
+          "exhaustivePlans": 1728,
+          "seededWeightedPlans": 256,
+          "malformedItems": 16,
+          "scenarios": [
+            "migration-ready",
+            "migration-bridge",
+            "migration-outage"
+          ]
+        },
+        "resilience": {
+          "domainModels": 256,
+          "integerCases": 64,
+          "invalidDomainCases": 6
+        },
+        "cliSha256": "08437f795bc8fbfa159d041d0bbb153800274e063af3fb0ac683a7a6af2c3ac9",
+        "unitTests": "Total tests: 23, passed: 23, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      },
+      {
+        "mode": "release",
+        "migration": {
+          "exhaustivePlans": 1728,
+          "seededWeightedPlans": 256,
+          "malformedItems": 16,
+          "scenarios": [
+            "migration-ready",
+            "migration-bridge",
+            "migration-outage"
+          ]
+        },
+        "resilience": {
+          "domainModels": 256,
+          "integerCases": 64,
+          "invalidDomainCases": 6
+        },
+        "cliSha256": "e48cb1c6e34756cccd8b5802041fe9482e86798db2ca43e3d0e5bcb9e25b6770",
+        "unitTests": "Total tests: 23, passed: 23, failed: 0.",
+        "exhaustivePolicyCases": 6561,
+        "invalidBatchItems": 18,
+        "transportRejects": 7,
+        "scenarios": [
+          "read-write",
+          "rollout",
+          "maintenance"
+        ]
+      }
+    ]
+  },
+  "powershell": "passed",
+  "reviewerDemo": [
+    "PASS all single voters tolerate loss, but losing east leaves only 2 of 3 required votes",
+    "PASS balanced placement survives any single domain failure",
+    "PASS correlated outage advances the first blocked migration stage",
+    "PASS overlapping domain membership is rejected"
+  ],
+  "previousCliScenariosByteIdentical": 6,
+  "preflight": "202 Accepted, exit 0",
+  "publication": "200 OK, exit 0",
+  "ci": {
+    "run": 45595756279,
+    "windows": "success",
+    "ubuntu": "success"
+  },
+  "publicPageHttpStatus": 200,
+  "consumer": {
+    "verifiedAt": "2026-11-25T10:35:19.412424+00:00",
+    "freshCache": true,
+    "workspaceOverride": false,
+    "registryCredentials": false,
+    "modes": [
+      "debug",
+      "release"
+    ],
+    "zipSha256": "07bc2a70269a6cb2d5914dac8a26a29842139e72383e8c4c526d89831e9c0910",
+    "allFilesMatch": true,
+    "output": [
+      "debug",
+      "PASS installed MoonQuorum 0.3.0: exact integers and correlated outage witness",
+      "release",
+      "PASS installed MoonQuorum 0.3.0: exact integers and correlated outage witness"
+    ]
+  }
+}

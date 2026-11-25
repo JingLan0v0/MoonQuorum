@@ -1,4 +1,35 @@
-# Acceptance evidence — 2026-11-18
+# Acceptance evidence — 2026-11-25
+
+## MoonQuorum 0.3.0
+
+Published from `05cc1591aebbf228bb7213788a7788ba8611bfef` at 2026-11-25T10:33:42.734299+00:00.
+[CI 45595756279](https://github.com/JingLan0v0/MoonQuorum/actions/runs/45595756279)
+passed Windows and Ubuntu for this SHA. The exact reviewer command
+`node examples/demo.mjs` succeeded with four assertions in the clean checkout.
+The legacy 0.2.0 release CLI was identified by the digest in its acceptance
+receipt. All six legacy fixture reports matched byte for byte, including
+output streams and exit codes.
+
+The actual publisher archive contained 61 tracked files, equal to the
+release source after newline normalization. Its separate extraction passed
+debug/release, PowerShell, 23 unit tests per mode, 6,561 two-policy cases,
+1,984 migration cases, 256 independent domain-outage cases and 64 decimal
+integer comparisons per mode. Verification completed at 2026-11-25T10:33:07.343Z.
+
+The old parser reproduced accepting the weight 1.00000000000000001 as 1.
+The revised parser checks the preserved decimal token and rejects fractional,
+out-of-range or forged representations. Equivalent integral decimal and
+exponent forms still pass. The domain witness is checked in the oracle by
+enumerating independent outage subsets and summing surviving weights.
+
+Mooncakes preflight returned 202 and formal upload returned 200. The version
+page is public. A fresh credential-free consumer installed the exact version
+without a workspace override. Both modes confirmed exact integer rejection
+and a correlated outage witness. The downloaded ZIP and all 61 installed
+files match the tested package. SHA-256 `07bc2a70269a6cb2d5914dac8a26a29842139e72383e8c4c526d89831e9c0910`.
+
+[Registry version](https://mooncakes.io/docs/JingLan0v0/quorum@0.3.0) ·
+[Machine-readable release proof](publication-0.3.0.json)
 
 ## MoonQuorum 0.2.0 staged migration release
 
