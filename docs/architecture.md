@@ -20,7 +20,8 @@ quorum intersects every right quorum. This does not prove any consensus protocol
 correct. The result is exact for the documented two global threshold families.
 
 Complexity O(n*q), storage O(q+n); <=131104 charged state visits with n<=32,
-q<=4096. Every visited state consumes one step, including unreachable ones.
+q<=4096. Budget accounting charges the full table. The solver skips voters with
+zero left weight and bounds the scanned prefix by the accumulated left weight.
 Default 200000 covers all valid model sizes. All budget state is local to one
 check; exhaustion leaves the reusable validated Pair unchanged. All weight sums
 are <=4096, costs use sentinel4097, masks use at most32 of64 bits.

@@ -1,3 +1,18 @@
+# Local optimization — 2026-11-26
+
+The intersection solver skips zero-left-weight voters and limits each descending
+pass to states the earlier voters could have reached. Both pair and migration
+budget accounting still charge the original full table. The 32-voter regression
+checks the exact budget boundary and verifies the deterministic disjoint witness.
+
+The local debug and release verifiers each passed 24 units, 6,561 weighted-policy
+cases, 1,984 migration models, 256 domain-outage models and 64 exact number
+comparisons. PowerShell smoke passed. A separate 64-request release comparison
+produced byte-identical output. For that workload the inner loop scanned 15,376
+states per model instead of 65,568. The median elapsed batch times across nine
+alternating pairs, including CLI startup, were 124.7 ms and 123.1 ms.
+
+
 # MoonQuorum 0.3.0 — 2026-11-25
 
 Published source `05cc1591aebbf228bb7213788a7788ba8611bfef` implements correlated failure-domain witnesses

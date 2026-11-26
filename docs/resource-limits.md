@@ -24,7 +24,8 @@ decimal forms remain supported. A direct Json number with a supplied spelling
 must agree with its decoded value. A bare number has only its decoded value.
 Both-zero members are allowed and harmless; neither policy counts their weight.
 
-Each DP state visit charges one step. Validation, witness generation and
+The search charges one step for each cell of the full members-by-threshold
+table, even when that state can be skipped. Validation, witness generation and
 independent proof validation are bounded by input caps but not individually
 metered. Budget exhaustion raises limit_exceeded without a conclusion. A batch
 may consume64 times its per-item budget; no shared batch budget is implied.

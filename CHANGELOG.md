@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Skip provably unreachable quorum states and zero-left-weight voters while
+  preserving the reported work charge and witness selection.
+
 ## 0.3.0 — published, 2026-11-25
 
 - Analyze simultaneous failure domains and produce exact minimum outage witnesses

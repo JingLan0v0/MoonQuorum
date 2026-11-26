@@ -168,20 +168,24 @@ pub fn check_intersection(
     raise QuorumError("invalid_input", "max_steps must be 1..2000000")
   }
   let q = p.left_threshold
+  // Charge the original full table so callers keep the same budget contract.
+  if p.members.length() * (q + 1) > max_steps {
+    raise QuorumError(
+      "limit_exceeded", "work budget exhausted; no intersection conclusion",
+    )
+  }
   let cost = Array::make(q + 1, 4097)
   let masks : Array[Int64] = Array::make(q + 1, 0L)
   cost[0] = 0
-  let mut remaining = max_steps
+  let mut reachable_max = 0
   for i = 0; i < p.members.length(); i = i + 1 {
     let m = p.members[i]
-    // Descending states make this 0/1 knapsack; each member can be selected once.
-    for t = q; t >= 0; t = t - 1 {
-      if remaining == 0 {
-        raise QuorumError(
-          "limit_exceeded", "work budget exhausted; no intersection conclusion",
-        )
-      }
-      remaining -= 1
+    // With no left weight, a voter cannot improve any state.
+    if m.left_weight == 0 {
+      continue
+    }
+    // Descend only through states the previous voters could have reached.
+    for t = reachable_max; t >= 0; t = t - 1 {
       if cost[t] == 4097 {
         continue
       }
@@ -192,6 +196,7 @@ pub fn check_intersection(
         masks[target] = masks[t] | (1L << i)
       }
     }
+    reachable_max = (reachable_max + m.left_weight).min(q)
   }
   if cost[q] > p.right_total - p.right_threshold {
     return Intersecting

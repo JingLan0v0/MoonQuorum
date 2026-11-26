@@ -181,3 +181,31 @@ test "strict text preflight" {
     assert_true(failed)
   }
 }
+
+///|
+test "pruning retains the full work charge and disjoint witness" {
+  let members = Array::makei(32, i => {
+    let id = "n" + i.to_string()
+    if i < 16 {
+      voter(id, 128, 0)
+    } else {
+      voter(id, 0, 128)
+    }
+  })
+  let pair = @quorum.pair(members, 2048, 2048)
+  let full_cost = 32 * 2049
+  try
+    @quorum.check_intersection(pair, max_steps=full_cost - 1) |> ignore
+  catch {
+    @quorum.QuorumError(code, _) => assert_eq(code, "limit_exceeded")
+  } noraise {
+    _ => fail("accepted a budget below the full work charge")
+  }
+  guard @quorum.check_intersection(pair, max_steps=full_cost)
+    is @quorum.Disjoint(left, right) else {
+    fail("expected disjoint witness")
+  }
+  assert_eq(left, Array::makei(16, i => "n" + i.to_string()))
+  assert_eq(right, Array::makei(16, i => "n" + (16 + i).to_string()))
+  assert_true(@quorum.verify_disjoint(pair, left, right))
+}
