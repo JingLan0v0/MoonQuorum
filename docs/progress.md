@@ -1,3 +1,9 @@
+# MoonQuorum 0.3.1 published - 2026-11-26
+
+Published from 7f47897de578b02e3020db0c35ce2039ea3271ab. The public registry download
+and exact-version consumer were verified. See [acceptance](acceptance.md)
+for CI, archive and installation evidence.
+
 # Local optimization — 2026-11-26
 
 The intersection solver skips zero-left-weight voters and limits each descending
