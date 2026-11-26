@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Compress quorum states using the greatest common divisor of left weights.
+
 ## 0.3.1 — 2026-11-26
 
 - Skip provably unreachable quorum states and zero-left-weight voters while

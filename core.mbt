@@ -159,6 +159,23 @@ pub fn availability(
 }
 
 ///|
+fn left_weight_unit(p : Pair) -> Int32 {
+  let mut unit = 0
+  for voter in p.members {
+    let mut weight = voter.left_weight
+    while weight != 0 {
+      let remainder = unit % weight
+      unit = weight
+      weight = remainder
+    }
+    if unit == 1 {
+      break
+    }
+  }
+  unit
+}
+
+///|
 /// Exact intersection of two global weighted threshold families, not protocol safety.
 pub fn check_intersection(
   p : Pair,
@@ -167,13 +184,15 @@ pub fn check_intersection(
   if max_steps < 1 || max_steps > 2000000 {
     raise QuorumError("invalid_input", "max_steps must be 1..2000000")
   }
-  let q = p.left_threshold
   // Charge the original full table so callers keep the same budget contract.
-  if p.members.length() * (q + 1) > max_steps {
+  if p.members.length() * (p.left_threshold + 1) > max_steps {
     raise QuorumError(
       "limit_exceeded", "work budget exhausted; no intersection conclusion",
     )
   }
+  // All reachable unsaturated totals are multiples of this unit.
+  let unit = left_weight_unit(p)
+  let q = (p.left_threshold - 1) / unit + 1
   let cost = Array::make(q + 1, 4097)
   let masks : Array[Int64] = Array::make(q + 1, 0L)
   cost[0] = 0
@@ -184,19 +203,20 @@ pub fn check_intersection(
     if m.left_weight == 0 {
       continue
     }
+    let left_weight = m.left_weight / unit
     // Descend only through states the previous voters could have reached.
     for t = reachable_max; t >= 0; t = t - 1 {
       if cost[t] == 4097 {
         continue
       }
-      let target = if t + m.left_weight > q { q } else { t + m.left_weight }
+      let target = (t + left_weight).min(q)
       let candidate = cost[t] + m.right_weight
       if candidate < cost[target] {
         cost[target] = candidate
         masks[target] = masks[t] | (1L << i)
       }
     }
-    reachable_max = (reachable_max + m.left_weight).min(q)
+    reachable_max = (reachable_max + left_weight).min(q)
   }
   if cost[q] > p.right_total - p.right_threshold {
     return Intersecting

@@ -209,3 +209,20 @@ test "pruning retains the full work charge and disjoint witness" {
   assert_eq(right, Array::makei(16, i => "n" + (16 + i).to_string()))
   assert_true(@quorum.verify_disjoint(pair, left, right))
 }
+
+///|
+test "common weight unit preserves a threshold between reachable totals" {
+  let members = [voter("a", 4, 3), voter("b", 2, 0), voter("c", 0, 1)]
+  let p = @quorum.pair(members, 3, 2)
+  guard @quorum.check_intersection(p, max_steps=12) is @quorum.Intersecting else {
+    fail("weight two cannot satisfy threshold three")
+  }
+  let at_unit = @quorum.pair(members, 2, 2)
+  guard @quorum.check_intersection(at_unit, max_steps=9)
+    is @quorum.Disjoint(left, right) else {
+    fail("weight two can satisfy threshold two")
+  }
+  assert_eq(left, ["b"])
+  assert_eq(right, ["a", "c"])
+  assert_true(@quorum.verify_disjoint(at_unit, left, right))
+}

@@ -1,3 +1,17 @@
+# Local solver optimization — 2026-11-26
+
+The pair solver scales the left weights by their greatest common divisor and
+rounds the threshold up in those units. It preserves the full-table work charge
+and the order of witness ties. A regression checks a threshold between two
+reachable weight totals.
+
+Debug and release each passed 25 units, 6,561 independent weighted cases,
+1,984 migration cases, 256 domain models and 64 exact-number comparisons.
+PowerShell smoke passed. A separate 320-request CLI comparison with a fresh
+build of 0.3.1 produced byte-identical output. For the 32-voter uniform-weight
+fixture, the loop bounds reduce scans from 15,376 to 136 states per request;
+the charged budget remains 65,568.
+
 # MoonQuorum 0.3.1 published - 2026-11-26
 
 Published from 7f47897de578b02e3020db0c35ce2039ea3271ab. The public registry download

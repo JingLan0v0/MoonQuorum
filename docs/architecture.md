@@ -22,6 +22,10 @@ correct. The result is exact for the documented two global threshold families.
 Complexity O(n*q), storage O(q+n); <=131104 charged state visits with n<=32,
 q<=4096. Budget accounting charges the full table. The solver skips voters with
 zero left weight and bounds the scanned prefix by the accumulated left weight.
+If positive left weights share a greatest common divisor, the solver stores
+only multiples of that unit below the saturated threshold. It rounds the
+threshold up in those units, preserving membership, the order of updates and
+ties. The charged table stays in the original weight units.
 Default 200000 covers all valid model sizes. All budget state is local to one
 check; exhaustion leaves the reusable validated Pair unchanged. All weight sums
 are <=4096, costs use sentinel4097, masks use at most32 of64 bits.
