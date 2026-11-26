@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.3.1 — 2026-11-26
 
 - Skip provably unreachable quorum states and zero-left-weight voters while
   preserving the reported work charge and witness selection.

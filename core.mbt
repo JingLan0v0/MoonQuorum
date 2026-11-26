@@ -215,7 +215,7 @@ pub fn check_intersection(
 
 ///|
 pub fn version() -> String {
-  "0.3.0"
+  "0.3.1"
 }
 
 ///|
