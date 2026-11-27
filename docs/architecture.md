@@ -25,7 +25,9 @@ correct. The result is exact for the documented two global threshold families.
 
 Complexity O(n*q), storage O(q+n); <=131104 charged state visits with n<=32,
 q<=4096. Budget accounting charges the full table. The solver skips voters with
-zero left weight and bounds the scanned prefix by the accumulated left weight.
+zero left weight and caps the highest reachable state by the accumulated left
+weight. It also skips states that cannot reach the threshold even if every
+remaining voter joins the left quorum.
 If positive left weights share a greatest common divisor, the solver stores
 only multiples of that unit below the saturated threshold. It rounds the
 threshold up in those units, preserving membership, the order of updates and

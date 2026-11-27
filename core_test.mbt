@@ -247,3 +247,24 @@ test "combined disjoint weight bound keeps equality and the original budget" {
   assert_eq(left, ["b"])
   assert_eq(right, ["a"])
 }
+
+///|
+test "remaining-weight bound retains the minimum valid witness at high threshold" {
+  let p = @quorum.pair(
+    [
+      voter("a", 4, 3),
+      voter("b", 3, 1),
+      voter("c", 2, 0),
+      voter("reserve", 0, 5),
+    ],
+    8,
+    5,
+  )
+  guard @quorum.check_intersection(p, max_steps=36)
+    is @quorum.Disjoint(left, right) else {
+    fail("expected the only disjoint witness")
+  }
+  assert_eq(left, ["a", "b", "c"])
+  assert_eq(right, ["reserve"])
+  assert_true(@quorum.verify_disjoint(p, left, right))
+}

@@ -192,8 +192,10 @@ pub fn check_intersection(
   }
   // A disjoint assignment can count each voter's weight on only one side.
   let mut disjoint_limit = 0
+  let mut total_left = 0
   for voter in p.members {
     disjoint_limit += voter.left_weight.max(voter.right_weight)
+    total_left += voter.left_weight
   }
   if p.left_threshold + p.right_threshold > disjoint_limit {
     return Intersecting
@@ -205,6 +207,7 @@ pub fn check_intersection(
   let masks : Array[Int64] = Array::make(q + 1, 0L)
   cost[0] = 0
   let mut reachable_max = 0
+  let mut remaining_left = total_left / unit
   for i = 0; i < p.members.length(); i = i + 1 {
     let m = p.members[i]
     // With no left weight, a voter cannot improve any state.
@@ -212,8 +215,9 @@ pub fn check_intersection(
       continue
     }
     let left_weight = m.left_weight / unit
-    // Descend only through states the previous voters could have reached.
-    for t = reachable_max; t >= 0; t = t - 1 {
+    // A state below this bound cannot reach the threshold using the remaining voters.
+    let reachable_min = (q - remaining_left).max(0)
+    for t = reachable_max; t >= reachable_min; t = t - 1 {
       if cost[t] == 4097 {
         continue
       }
@@ -225,6 +229,7 @@ pub fn check_intersection(
       }
     }
     reachable_max = (reachable_max + left_weight).min(q)
+    remaining_left -= left_weight
   }
   if cost[q] > p.right_total - p.right_threshold {
     return Intersecting
@@ -243,7 +248,7 @@ pub fn check_intersection(
 
 ///|
 pub fn version() -> String {
-  "0.3.2"
+  "0.3.3"
 }
 
 ///|

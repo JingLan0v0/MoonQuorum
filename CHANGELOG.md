@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3 — 2026-11-27
+
+- Skip quorum states that cannot reach the threshold with the remaining voters.
+
 ## 0.3.2 — 2026-11-27
 
 - Prove intersection from a combined weight bound before allocating solver states when possible.
