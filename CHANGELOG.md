@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.3.2 — 2026-11-27
 
 - Prove intersection from a combined weight bound before allocating solver states when possible.
 
