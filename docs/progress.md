@@ -1,3 +1,8 @@
+# MoonQuorum 0.3.2 published — 2026-11-27
+
+Published from `9573c9641bf02940c08b5af91fa9d7a9ee0be511`. The public ZIP and exact-version install
+were verified. See [acceptance](acceptance.md) for release evidence.
+
 # Local intersection optimization — 2026-11-27
 
 A disjoint choice contributes at most the larger of the two weights for each

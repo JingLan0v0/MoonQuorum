@@ -1,5 +1,21 @@
 # Acceptance evidence — 2026-11-25
 
+## Mooncakes 0.3.2 — 2026-11-27
+
+Release source: `9573c9641bf02940c08b5af91fa9d7a9ee0be511`. [GitHub Actions](https://github.com/JingLan0v0/MoonQuorum/actions/runs/45955481203) passed
+on Windows and Ubuntu for this commit. The archive contained 62
+files matching the source. Full Debug and Release verification and the
+PowerShell smoke test passed after clean extraction.
+
+Mooncakes preflight returned 202 Accepted and publication returned 200 OK.
+The [version page](https://mooncakes.io/docs/JingLan0v0/quorum@0.3.2) returned HTTP 200.
+The [public ZIP](https://download.mooncakes.io/user/JingLan0v0/quorum/0.3.2.zip) and the tested publisher ZIP share SHA-256
+`7c07665ed278376a9a5908cf8c488709f93a93b7f975bca9bb5a5bd9b1f5b5cc`. The public metadata records 2026-11-27T15:01:53.4858960+08:00.
+
+A clean consumer installed `JingLan0v0/quorum@0.3.2` from Mooncakes without a workspace
+override or registry credentials. All 62 installed files
+matched the ZIP byte for byte. Debug and Release passed. The consumer exercised the disjoint-weight bound, equality witnesses and the original work charge.
+
 ## Mooncakes 0.3.1 - 2026-11-26
 
 Release source: 7f47897de578b02e3020db0c35ce2039ea3271ab. The [GitHub Actions run](https://github.com/JingLan0v0/MoonQuorum/actions/runs/45763252075) passed on
