@@ -4,7 +4,7 @@
 人数集合，以及节点停机后各策略能否达到阈值。报告给出首个失败阶段、冲突双方的
 成员名单和权重缺口。核心分析全部由 MoonBit 实现。
 
-已发布 **[JingLan0v0/quorum@0.3.2](https://mooncakes.io/docs/JingLan0v0/quorum@0.3.2)**，实际回执见 [验收记录](docs/acceptance.md)。
+已发布 **[JingLan0v0/quorum@0.3.3](https://mooncakes.io/docs/JingLan0v0/quorum@0.3.3)**，实际回执见 [验收记录](docs/acceptance.md)。
 公开仓库：[JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum)。
 
 ## 一键复现故障域检查
@@ -17,7 +17,7 @@
 ## 安装库
 
 ```sh
-moon add JingLan0v0/quorum@0.3.2
+moon add JingLan0v0/quorum@0.3.3
 ```
 
 在使用方 `moon.pkg` 中导入 `JingLan0v0/quorum`；调用示例见 `examples/library`。

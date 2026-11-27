@@ -1,3 +1,9 @@
+# MoonQuorum 0.3.3 published — 2026-11-27
+
+Published from `2446173e1acf4191caf6bfad1aa0dc99f4502d24`. The solver skips states below the minimum reachable threshold. A 64-request comparison produced byte-identical reports. The first fixture visits 1,591 states, down from 59,311.
+The exact public package installs and passes both modes. See
+[acceptance](acceptance.md) for CI and registry receipts.
+
 # MoonQuorum 0.3.2 published — 2026-11-27
 
 Published from `9573c9641bf02940c08b5af91fa9d7a9ee0be511`. The public ZIP and exact-version install

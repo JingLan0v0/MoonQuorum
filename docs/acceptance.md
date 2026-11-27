@@ -1,5 +1,22 @@
 # Acceptance evidence — 2026-11-25
 
+## Mooncakes 0.3.3 — 2026-11-27
+
+Release source: `2446173e1acf4191caf6bfad1aa0dc99f4502d24`. [GitHub Actions](https://github.com/JingLan0v0/MoonQuorum/actions/runs/45956452413) passed
+on Windows and Ubuntu for this commit. All 62 archive files
+match the release source. Full Debug, Release and PowerShell verification
+passed after clean extraction. The solver skips states below the minimum reachable threshold. A 64-request comparison produced byte-identical reports. The first fixture visits 1,591 states, down from 59,311.
+
+Mooncakes preflight returned 202 Accepted and publication returned 200 OK.
+The [public version](https://mooncakes.io/docs/JingLan0v0/quorum@0.3.3) returned HTTP 200.
+The [registry ZIP](https://download.mooncakes.io/user/JingLan0v0/quorum/0.3.3.zip) and the tested publisher ZIP
+match the public SHA-256 `d746b6eef5dcb16fb8e6661c9160b6b7ff23f923aafcd21e3dc9dbdd1d1588d9`.
+Registry publication timestamp: 2026-11-27T15:10:34.1296140+08:00.
+
+An anonymous consumer installed `JingLan0v0/quorum@0.3.3` from a fresh cache.
+All 62 installed files matched the public ZIP.
+Debug and Release passed. The installed build verified the near-threshold disjoint witness.
+
 ## Mooncakes 0.3.2 — 2026-11-27
 
 Release source: `9573c9641bf02940c08b5af91fa9d7a9ee0be511`. [GitHub Actions](https://github.com/JingLan0v0/MoonQuorum/actions/runs/45955481203) passed
