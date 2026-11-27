@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.4 — 2026-11-28
+
+- Check disjoint witnesses in one pass over the voter array.
+
 ## 0.3.3 — 2026-11-27
 
 - Skip quorum states that cannot reach the threshold with the remaining voters.

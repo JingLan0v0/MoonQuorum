@@ -83,7 +83,7 @@ for(const mode of ['debug','release']){
  const bom=invoke(['-'],'\ufeff'+JSON.stringify(good));assert.equal(bom.status,0,bom.stderr);
  assert.deepEqual(batch([]),[]);
  for(const args of [[],['--unknown'],['x','y'],['missing-file.json']]){const r=invoke(args,'');assert.equal(r.status,2);assert.equal(r.stdout,'');}
- assert.equal(invoke(['--version'],'').stdout.trim(),'0.3.3');
+ assert.equal(invoke(['--version'],'').stdout.trim(),'0.3.4');
  assert(invoke(['--help'],'').stdout.includes('moon-quorum'));
  const fd=fs.openSync(path.join(root,'moon.mod'),'r');try{assert.equal(spawnSync(process.execPath,[cli,'--version'],{stdio:['ignore',fd,'pipe'],encoding:'utf8',timeout:15000}).status,2);}finally{fs.closeSync(fd);}
  for(const name of ['read-write','rollout','maintenance']){const req=JSON.parse(fs.readFileSync(`examples/${name}.json`,'utf8')),r=invoke([`examples/${name}.json`],'');assert.equal(r.status,0,r.stderr);validate(req,JSON.parse(r.stdout));}

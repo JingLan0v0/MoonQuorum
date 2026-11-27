@@ -38,7 +38,9 @@ are <=4096, costs use sentinel4097, masks use at most32 of64 bits.
 
 Pair snapshots the public array of immutable Member values. The members getter
 copies its array; witness arrays are new per check. The independent verifier
-uses only original weights, ID sets and sums; it does not call the solver.
+records each requested ID once, then scans the original voter weights and
+sums each side's capacity. Any remaining ID is unknown. This check is
+independent of the solver and takes one pass over the voter array.
 
 The test oracle enumerates all two-subset pairs of three voters for every weight
 assignment in {0,1,2}^6 and every valid threshold pair: 6561 cases. It checks actual

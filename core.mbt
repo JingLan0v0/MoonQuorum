@@ -131,15 +131,40 @@ pub fn verify_disjoint(
   left : Array[String],
   right : Array[String],
 ) -> Bool {
-  try {
-    let (a, _) = selected_weight(p, left)
-    let (_, b) = selected_weight(p, right)
-    a >= p.left_threshold &&
-    b >= p.right_threshold &&
-    !left.any(x => right.contains(x))
-  } catch {
-    QuorumError(_, _) => false
+  if left.length() + right.length() > p.members.length() {
+    return false
   }
+  let sides : Map[String, Bool] = Map([])
+  for id in left {
+    if sides.contains(id) {
+      return false
+    }
+    sides[id] = true
+  }
+  for id in right {
+    if sides.contains(id) {
+      return false
+    }
+    sides[id] = false
+  }
+  let mut left_weight = 0
+  let mut right_weight = 0
+  for voter in p.members {
+    match sides.get(voter.id) {
+      Some(on_left) => {
+        sides.remove(voter.id)
+        if on_left {
+          left_weight += voter.left_weight
+        } else {
+          right_weight += voter.right_weight
+        }
+      }
+      None => ()
+    }
+  }
+  sides.is_empty() &&
+  left_weight >= p.left_threshold &&
+  right_weight >= p.right_threshold
 }
 
 ///|
@@ -248,7 +273,7 @@ pub fn check_intersection(
 
 ///|
 pub fn version() -> String {
-  "0.3.3"
+  "0.3.4"
 }
 
 ///|

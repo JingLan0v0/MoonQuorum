@@ -268,3 +268,18 @@ test "remaining-weight bound retains the minimum valid witness at high threshold
   assert_eq(right, ["reserve"])
   assert_true(@quorum.verify_disjoint(p, left, right))
 }
+
+///|
+test "full witnesses check unique members across both sides" {
+  let members = Array::makei(32, i => voter("n" + i.to_string(), 1, 1))
+  let p = @quorum.pair(members, 16, 16)
+  let left = Array::makei(16, i => "n" + (15 - i).to_string())
+  let right = Array::makei(16, i => "n" + (31 - i).to_string())
+  assert_true(@quorum.verify_disjoint(p, left, right))
+  right[0] = "n15"
+  assert_false(@quorum.verify_disjoint(p, left, right))
+  right[0] = "unknown"
+  assert_false(@quorum.verify_disjoint(p, left, right))
+  right[0] = "n31"
+  assert_true(@quorum.verify_disjoint(p, left, right))
+}
