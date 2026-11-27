@@ -16,7 +16,11 @@ traversal therefore never selects the current item twice.
 
 A disjoint witness exists iff cost[q] <= total_right - right_threshold. Its left
 set is the stored mask and its right set the complement. Otherwise every left
-quorum intersects every right quorum. This does not prove any consensus protocol
+quorum intersects every right quorum. A disjoint assignment contributes at most
+the sum of the larger weight for each voter across the two sides. When that
+sum is below the two thresholds combined, the solver returns intersection
+without allocating the table. The full work charge still applies.
+This does not prove any consensus protocol
 correct. The result is exact for the documented two global threshold families.
 
 Complexity O(n*q), storage O(q+n); <=131104 charged state visits with n<=32,

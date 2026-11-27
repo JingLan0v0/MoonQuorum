@@ -1,3 +1,16 @@
+# Local intersection optimization — 2026-11-27
+
+A disjoint choice contributes at most the larger of the two weights for each
+voter. The solver returns intersection when their sum cannot reach the two
+thresholds together. It checks the original work charge before this proof.
+At equality the solver still checks for a disjoint witness.
+
+Both local builds passed 26 unit tests, 6,561 independent weighted cases,
+1,984 migration models, 256 domain models and 64 exact-number comparisons.
+PowerShell smoke passed. Two clean Release CLI builds produced byte-identical
+reports for 64 high-threshold requests. In the first 32-voter fixture, the
+previous loop bounds scanned 47,983 states and the new proof needs no table.
+
 # Local solver optimization — 2026-11-26
 
 The pair solver scales the left weights by their greatest common divisor and

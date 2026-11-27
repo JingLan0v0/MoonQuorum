@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Prove intersection from a combined weight bound before allocating solver states when possible.
+
 - Compress quorum states using the greatest common divisor of left weights.
 
 ## 0.3.1 — 2026-11-26

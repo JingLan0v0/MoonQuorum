@@ -190,6 +190,14 @@ pub fn check_intersection(
       "limit_exceeded", "work budget exhausted; no intersection conclusion",
     )
   }
+  // A disjoint assignment can count each voter's weight on only one side.
+  let mut disjoint_limit = 0
+  for voter in p.members {
+    disjoint_limit += voter.left_weight.max(voter.right_weight)
+  }
+  if p.left_threshold + p.right_threshold > disjoint_limit {
+    return Intersecting
+  }
   // All reachable unsaturated totals are multiples of this unit.
   let unit = left_weight_unit(p)
   let q = (p.left_threshold - 1) / unit + 1

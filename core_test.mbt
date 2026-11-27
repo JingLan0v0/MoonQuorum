@@ -226,3 +226,24 @@ test "common weight unit preserves a threshold between reachable totals" {
   assert_eq(right, ["a", "c"])
   assert_true(@quorum.verify_disjoint(at_unit, left, right))
 }
+
+///|
+test "combined disjoint weight bound keeps equality and the original budget" {
+  let members = [voter("a", 2, 3), voter("b", 3, 2)]
+  let above = @quorum.pair(members, 4, 3)
+  try @quorum.check_intersection(above, max_steps=9) |> ignore catch {
+    @quorum.QuorumError(code, _) => assert_eq(code, "limit_exceeded")
+  } noraise {
+    _ => fail("accepted less than the full budget")
+  }
+  guard @quorum.check_intersection(above, max_steps=10) is @quorum.Intersecting else {
+    fail("threshold sum exceeds the combined disjoint weight")
+  }
+  let equal = @quorum.pair(members, 3, 3)
+  guard @quorum.check_intersection(equal, max_steps=8)
+    is @quorum.Disjoint(left, right) else {
+    fail("disjoint quorums exist at the bound")
+  }
+  assert_eq(left, ["b"])
+  assert_eq(right, ["a"])
+}
