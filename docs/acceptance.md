@@ -1,5 +1,21 @@
 # Acceptance evidence — 2026-11-25
 
+## Mooncakes 0.3.4 — 2026-11-28
+
+Release source: `d24b04d05efd740fd0c4be17aa74c90a24d4840a`. [GitHub Actions](https://github.com/JingLan0v0/MoonQuorum/actions/runs/46043599978) passed
+on Windows and Ubuntu for this commit. The 62 archive files
+match the release source. Full Debug, Release and PowerShell checks passed
+after clean extraction. Both builds agreed on the results of 50,000 verification calls. The median elapsed time for nine alternating CLI batches on the local machine was 372.4 ms before and 262.2 ms after.
+
+Mooncakes preflight returned 202 Accepted and publication returned 200 OK.
+The [public version](https://mooncakes.io/docs/JingLan0v0/quorum@0.3.4) returned HTTP 200.
+The [public ZIP](https://download.mooncakes.io/user/JingLan0v0/quorum/0.3.4.zip) and tested publisher ZIP match the
+registry SHA-256 `dca4c36f63e217f8571ded49a9d3bf8dd8a2d65d86c3cf89441db7a1d6012b32`. Registry timestamp: 2026-11-27T17:42:04.275929+00:00.
+
+An anonymous consumer installed `JingLan0v0/quorum@0.3.4` using a fresh cache. All
+62 installed files matched the public ZIP byte for byte.
+Debug and Release passed. The consumer verified a full witness and rejected overlapping or unknown voter IDs.
+
 ## Mooncakes 0.3.3 — 2026-11-27
 
 Release source: `2446173e1acf4191caf6bfad1aa0dc99f4502d24`. [GitHub Actions](https://github.com/JingLan0v0/MoonQuorum/actions/runs/45956452413) passed

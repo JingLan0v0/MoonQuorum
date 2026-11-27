@@ -1,3 +1,8 @@
+# MoonQuorum 0.3.4 published — 2026-11-28
+
+Published from `d24b04d05efd740fd0c4be17aa74c90a24d4840a`. Both builds agreed on the results of 50,000 verification calls. The median elapsed time for nine alternating CLI batches on the local machine was 372.4 ms before and 262.2 ms after.
+See [acceptance](acceptance.md) for the verified ZIP and exact-version consumer.
+
 # MoonQuorum 0.3.3 published — 2026-11-27
 
 Published from `2446173e1acf4191caf6bfad1aa0dc99f4502d24`. The solver skips states below the minimum reachable threshold. A 64-request comparison produced byte-identical reports. The first fixture visits 1,591 states, down from 59,311.
