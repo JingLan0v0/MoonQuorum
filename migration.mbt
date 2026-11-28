@@ -232,7 +232,7 @@ pub fn check_migration(
           Some(saved) => saved
           None => {
             let comparison = policy_comparison(policies[left], policies[right])
-            let cost = comparison.members.length() *
+            let cost = comparison.validated_members.length() *
               (comparison.left_threshold + 1)
             if cost > max_steps - steps {
               raise QuorumError(

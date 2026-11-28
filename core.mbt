@@ -12,7 +12,9 @@ pub(all) struct Member {
 
 ///|
 pub struct Pair {
+  // Retained as a detached view for callers that read the legacy field.
   members : Array[Member]
+  priv validated_members : Array[Member]
   left_threshold : Int32
   right_threshold : Int32
   right_total : Int32
@@ -81,6 +83,7 @@ pub fn pair(
   }
   {
     members: members.copy(),
+    validated_members: members.copy(),
     left_threshold,
     right_threshold,
     right_total: right,
@@ -89,7 +92,7 @@ pub fn pair(
 
 ///|
 pub fn Pair::members(self : Pair) -> Array[Member] {
-  self.members.copy()
+  self.validated_members.copy()
 }
 
 ///|
@@ -97,7 +100,7 @@ fn selected_weight(
   p : Pair,
   names : Array[String],
 ) -> (Int32, Int32) raise QuorumError {
-  if names.length() > p.members.length() {
+  if names.length() > p.validated_members.length() {
     raise QuorumError("invalid_input", "too many member ids")
   }
   let seen : Map[String, Bool] = Map([])
@@ -109,7 +112,7 @@ fn selected_weight(
     }
     seen[name] = true
     let mut found = false
-    for m in p.members {
+    for m in p.validated_members {
       if m.id == name {
         left += m.left_weight
         right += m.right_weight
@@ -131,7 +134,9 @@ pub fn verify_disjoint(
   left : Array[String],
   right : Array[String],
 ) -> Bool {
-  if left.length() + right.length() > p.members.length() {
+  let member_count = p.validated_members.length()
+  if left.length() > member_count ||
+    right.length() > member_count - left.length() {
     return false
   }
   let sides : Map[String, Bool] = Map([])
@@ -149,7 +154,7 @@ pub fn verify_disjoint(
   }
   let mut left_weight = 0
   let mut right_weight = 0
-  for voter in p.members {
+  for voter in p.validated_members {
     match sides.get(voter.id) {
       Some(on_left) => {
         sides.remove(voter.id)
@@ -175,7 +180,7 @@ pub fn availability(
 ) -> (Int32, Int32, Bool, Bool) raise QuorumError {
   let (lost_left, lost_right) = selected_weight(p, unavailable)
   let mut total_left = 0
-  for m in p.members {
+  for m in p.validated_members {
     total_left += m.left_weight
   }
   let a = total_left - lost_left
@@ -186,7 +191,7 @@ pub fn availability(
 ///|
 fn left_weight_unit(p : Pair) -> Int32 {
   let mut unit = 0
-  for voter in p.members {
+  for voter in p.validated_members {
     let mut weight = voter.left_weight
     while weight != 0 {
       let remainder = unit % weight
@@ -210,7 +215,7 @@ pub fn check_intersection(
     raise QuorumError("invalid_input", "max_steps must be 1..2000000")
   }
   // Charge the original full table so callers keep the same budget contract.
-  if p.members.length() * (p.left_threshold + 1) > max_steps {
+  if p.validated_members.length() * (p.left_threshold + 1) > max_steps {
     raise QuorumError(
       "limit_exceeded", "work budget exhausted; no intersection conclusion",
     )
@@ -218,7 +223,7 @@ pub fn check_intersection(
   // A disjoint assignment can count each voter's weight on only one side.
   let mut disjoint_limit = 0
   let mut total_left = 0
-  for voter in p.members {
+  for voter in p.validated_members {
     disjoint_limit += voter.left_weight.max(voter.right_weight)
     total_left += voter.left_weight
   }
@@ -233,8 +238,8 @@ pub fn check_intersection(
   cost[0] = 0
   let mut reachable_max = 0
   let mut remaining_left = total_left / unit
-  for i = 0; i < p.members.length(); i = i + 1 {
-    let m = p.members[i]
+  for i = 0; i < p.validated_members.length(); i = i + 1 {
+    let m = p.validated_members[i]
     // With no left weight, a voter cannot improve any state.
     if m.left_weight == 0 {
       continue
@@ -261,11 +266,11 @@ pub fn check_intersection(
   }
   let left : Array[String] = []
   let right : Array[String] = []
-  for i = 0; i < p.members.length(); i = i + 1 {
+  for i = 0; i < p.validated_members.length(); i = i + 1 {
     if (masks[q] & (1L << i)) != 0L {
-      left.push(p.members[i].id)
+      left.push(p.validated_members[i].id)
     } else {
-      right.push(p.members[i].id)
+      right.push(p.validated_members[i].id)
     }
   }
   Disjoint(left, right)
@@ -273,7 +278,7 @@ pub fn check_intersection(
 
 ///|
 pub fn version() -> String {
-  "0.3.4"
+  "0.3.5"
 }
 
 ///|

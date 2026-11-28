@@ -36,8 +36,9 @@ Default 200000 covers all valid model sizes. All budget state is local to one
 check; exhaustion leaves the reusable validated Pair unchanged. All weight sums
 are <=4096, costs use sentinel4097, masks use at most32 of64 bits.
 
-Pair snapshots the public array of immutable Member values. The members getter
-copies its array; witness arrays are new per check. The independent verifier
+Pair keeps a private snapshot of the validated members. The legacy public
+members field is a detached copy, and the members getter returns a fresh copy
+of the validated snapshot. Witness arrays are new per check. The independent verifier
 records each requested ID once, then scans the original voter weights and
 sums each side's capacity. Any remaining ID is unknown. This check is
 independent of the solver and takes one pass over the voter array.

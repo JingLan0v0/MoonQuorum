@@ -96,6 +96,7 @@ pub struct Pair {
   left_threshold : Int32
   right_threshold : Int32
   right_total : Int32
+  // private fields
 }
 pub fn Pair::members(Self) -> Array[Member]
 

@@ -283,3 +283,19 @@ test "full witnesses check unique members across both sides" {
   right[0] = "n31"
   assert_true(@quorum.verify_disjoint(p, left, right))
 }
+
+///|
+test "legacy member field mutation leaves the validated quorum intact" {
+  let p = @quorum.pair([voter("a", 1, 0), voter("b", 0, 1)], 1, 1)
+  assert_eq(p.members.length(), 2)
+  p.members.clear()
+  assert_true(@quorum.verify_disjoint(p, ["a"], ["b"]))
+  assert_eq(p.members().length(), 2)
+  assert_eq(@quorum.availability(p, ["a"]), (0, 1, false, true))
+  guard @quorum.check_intersection(p, max_steps=4)
+    is @quorum.Disjoint(left, right) else {
+    fail("expected original witness")
+  }
+  assert_eq(left, ["a"])
+  assert_eq(right, ["b"])
+}

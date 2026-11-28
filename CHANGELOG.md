@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.5 — 2026-11-28
+
+- Protect the validated voter snapshot from changes through the public members array.
+
 ## 0.3.4 — 2026-11-28
 
 - Check disjoint witnesses in one pass over the voter array.
