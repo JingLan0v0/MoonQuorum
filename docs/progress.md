@@ -1,3 +1,8 @@
+# MoonQuorum 0.3.6 published — 2026-11-28
+
+Published from `05f188a73590c14b56435b7c1f6e1ae3b0c8ff75`. The 50,000-query local outage benchmark returned the same totals. Across nine alternating runs the median batch time was 151.4 ms before and 134.8 ms after. The validated membership index is private.
+See [acceptance](acceptance.md) for the public archive and exact install verification.
+
 # MoonQuorum 0.3.5 published — 2026-11-28
 
 Published from `6f4d6e7eabc6b866cd305577ca5146f8349bf121`. The regression reproduced a valid witness being rejected in 0.3.4 after clearing the publicly readable member array. The private snapshot now protects intersection checks, witness verification and outage results.
