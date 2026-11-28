@@ -15,6 +15,8 @@ pub struct Pair {
   // Retained as a detached view for callers that read the legacy field.
   members : Array[Member]
   priv validated_members : Array[Member]
+  priv members_by_id : Map[String, Member]
+  priv left_total : Int32
   left_threshold : Int32
   right_threshold : Int32
   right_total : Int32
@@ -53,14 +55,14 @@ pub fn pair(
   if members.length() < 1 || members.length() > 32 {
     raise QuorumError("limit_exceeded", "require 1..32 members")
   }
-  let seen : Map[String, Bool] = Map([])
+  let members_by_id : Map[String, Member] = Map([])
   let mut left = 0
   let mut right = 0
   for m in members {
-    if !valid_id(m.id) || seen.contains(m.id) {
+    if !valid_id(m.id) || members_by_id.contains(m.id) {
       raise QuorumError("invalid_input", "invalid or duplicate member id")
     }
-    seen[m.id] = true
+    members_by_id[m.id] = m
     if m.left_weight < 0 ||
       m.left_weight > 1000 ||
       m.right_weight < 0 ||
@@ -84,6 +86,8 @@ pub fn pair(
   {
     members: members.copy(),
     validated_members: members.copy(),
+    members_by_id,
+    left_total: left,
     left_threshold,
     right_threshold,
     right_total: right,
@@ -103,6 +107,9 @@ fn selected_weight(
   if names.length() > p.validated_members.length() {
     raise QuorumError("invalid_input", "too many member ids")
   }
+  if names.is_empty() {
+    return (0, 0)
+  }
   let seen : Map[String, Bool] = Map([])
   let mut left = 0
   let mut right = 0
@@ -111,18 +118,11 @@ fn selected_weight(
       raise QuorumError("invalid_input", "duplicate member id")
     }
     seen[name] = true
-    let mut found = false
-    for m in p.validated_members {
-      if m.id == name {
-        left += m.left_weight
-        right += m.right_weight
-        found = true
-        break
-      }
-    }
-    if !found {
+    guard p.members_by_id.get(name) is Some(m) else {
       raise QuorumError("invalid_input", "unknown member: " + name)
     }
+    left += m.left_weight
+    right += m.right_weight
   }
   (left, right)
 }
@@ -179,11 +179,7 @@ pub fn availability(
   unavailable : Array[String],
 ) -> (Int32, Int32, Bool, Bool) raise QuorumError {
   let (lost_left, lost_right) = selected_weight(p, unavailable)
-  let mut total_left = 0
-  for m in p.validated_members {
-    total_left += m.left_weight
-  }
-  let a = total_left - lost_left
+  let a = p.left_total - lost_left
   let b = p.right_total - lost_right
   (a, b, a >= p.left_threshold, b >= p.right_threshold)
 }
@@ -222,10 +218,8 @@ pub fn check_intersection(
   }
   // A disjoint assignment can count each voter's weight on only one side.
   let mut disjoint_limit = 0
-  let mut total_left = 0
   for voter in p.validated_members {
     disjoint_limit += voter.left_weight.max(voter.right_weight)
-    total_left += voter.left_weight
   }
   if p.left_threshold + p.right_threshold > disjoint_limit {
     return Intersecting
@@ -237,7 +231,7 @@ pub fn check_intersection(
   let masks : Array[Int64] = Array::make(q + 1, 0L)
   cost[0] = 0
   let mut reachable_max = 0
-  let mut remaining_left = total_left / unit
+  let mut remaining_left = p.left_total / unit
   for i = 0; i < p.validated_members.length(); i = i + 1 {
     let m = p.validated_members[i]
     // With no left weight, a voter cannot improve any state.
@@ -278,7 +272,7 @@ pub fn check_intersection(
 
 ///|
 pub fn version() -> String {
-  "0.3.5"
+  "0.3.6"
 }
 
 ///|

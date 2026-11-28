@@ -42,6 +42,9 @@ of the validated snapshot. Witness arrays are new per check. The independent ver
 records each requested ID once, then scans the original voter weights and
 sums each side's capacity. Any remaining ID is unknown. This check is
 independent of the solver and takes one pass over the voter array.
+For outage capacity, reuse the validated per-ID membership map and policy
+totals. Each unavailable ID needs one lookup, and an empty outage list
+returns the full cached capacities.
 
 The test oracle enumerates all two-subset pairs of three voters for every weight
 assignment in {0,1,2}^6 and every valid threshold pair: 6561 cases. It checks actual

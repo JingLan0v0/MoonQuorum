@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.6 — 2026-11-28
+
+- Reuse validated membership and total weights for outage capacity queries.
+
 ## 0.3.5 — 2026-11-28
 
 - Protect the validated voter snapshot from changes through the public members array.

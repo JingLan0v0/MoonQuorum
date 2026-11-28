@@ -299,3 +299,16 @@ test "legacy member field mutation leaves the validated quorum intact" {
   assert_eq(left, ["a"])
   assert_eq(right, ["b"])
 }
+
+///|
+test "outage index stays tied to the validated weights across repeated queries" {
+  let source = Array::makei(32, i => voter("v" + i.to_string(), 2, 3))
+  let p = @quorum.pair(source, 33, 48)
+  source.clear()
+  p.members.clear()
+  let unavailable = Array::makei(16, i => "v" + (31 - i * 2).to_string())
+  assert_eq(@quorum.availability(p, unavailable), (32, 48, false, true))
+  assert_eq(@quorum.availability(p, []), (64, 96, true, true))
+  assert_eq(@quorum.availability(p, ["v31"]), (62, 93, true, true))
+  assert_eq(@quorum.availability(p, unavailable), (32, 48, false, true))
+}

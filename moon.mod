@@ -1,6 +1,6 @@
 name = "JingLan0v0/quorum"
 
-version = "0.3.5"
+version = "0.3.6"
 
 repository = "https://github.com/JingLan0v0/MoonQuorum"
 

@@ -7,7 +7,7 @@ shortfalls under named outages. The original two-policy API remains available.
 
 [中文说明](README.zh-CN.md) · Apache-2.0 · Pure MoonBit core · JS backend
 
-Version 0.3.5. Repository: [JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum).
+Version 0.3.6. Repository: [JingLan0v0/MoonQuorum](https://github.com/JingLan0v0/MoonQuorum).
 Published: [JingLan0v0/quorum@0.3.5](https://mooncakes.io/docs/JingLan0v0/quorum@0.3.5).
 Actual registry and CI receipts: [acceptance](docs/acceptance.md).
 
