@@ -1,3 +1,8 @@
+# MoonQuorum 0.3.5 published — 2026-11-28
+
+Published from `6f4d6e7eabc6b866cd305577ca5146f8349bf121`. The regression reproduced a valid witness being rejected in 0.3.4 after clearing the publicly readable member array. The private snapshot now protects intersection checks, witness verification and outage results.
+See [acceptance](acceptance.md) for the public archive and exact install verification.
+
 # MoonQuorum 0.3.4 published — 2026-11-28
 
 Published from `d24b04d05efd740fd0c4be17aa74c90a24d4840a`. Both builds agreed on the results of 50,000 verification calls. The median elapsed time for nine alternating CLI batches on the local machine was 372.4 ms before and 262.2 ms after.

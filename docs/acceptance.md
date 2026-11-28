@@ -1,5 +1,23 @@
 # Acceptance evidence — 2026-11-25
 
+## Mooncakes 0.3.5 — 2026-11-28
+
+Release source: `6f4d6e7eabc6b866cd305577ca5146f8349bf121`. [GitHub Actions](https://github.com/JingLan0v0/MoonQuorum/actions/runs/46118121964)
+passed on Windows and Ubuntu for that commit. Full Debug, Release and
+PowerShell tests passed on a clean extraction. All 62
+packaged files match the release source.
+
+The regression reproduced a valid witness being rejected in 0.3.4 after clearing the publicly readable member array. The private snapshot now protects intersection checks, witness verification and outage results.
+
+Mooncakes returned 202 Accepted for preflight and 200 OK for publication.
+The [public version](https://mooncakes.io/docs/JingLan0v0/quorum@0.3.5) returned HTTP 200. The
+[public ZIP](https://download.mooncakes.io/user/JingLan0v0/quorum/0.3.5.zip) and the publisher archive match the
+registry SHA-256 `176d2189d05370da57d769b06b5e3271a627fba605741cc100427c906802ba8a`. Published at 2026-11-28T06:47:39.107314+00:00.
+
+An anonymous consumer installed the exact version from a fresh cache.
+All installed files matched the public ZIP byte for byte. Debug and
+Release passed. The installed API passed the original mutation regression.
+
 ## Mooncakes 0.3.4 — 2026-11-28
 
 Release source: `d24b04d05efd740fd0c4be17aa74c90a24d4840a`. [GitHub Actions](https://github.com/JingLan0v0/MoonQuorum/actions/runs/46043599978) passed
